@@ -99,45 +99,45 @@ def atualizar_produto(descricao_produtos):
         print("\nNão existem produtos cadastrados.")
         return
 
-print("\nProdutos cadastrados.")
+    print("\nProdutos cadastrados.")
 
-for i in range(len(descricao_produtos)):
-        print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
+    for i in range(len(descricao_produtos)):
+            print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
 
-num_produto = int(input("\nDigite o número do produto que deseja atualizar: "))
+    num_produto = int(input("\nDigite o número do produto que deseja atualizar: "))
 
-if num_produto < 1 or num_produto > len(descricao_produtos):
-        print("\nProduto inválido.")
-        return
+    if num_produto < 1 or num_produto > len(descricao_produtos):
+            print("\nProduto inválido.")
+            return
 
-produto = descricao_produtos[num_produto - 1]
+    produto = descricao_produtos[num_produto - 1]
 
-print(f"\nProduto selecionado: {produto['nome']}")
+    print(f"\nProduto selecionado: {produto['nome']}")
 
-print("\nO que deseja atualizar?")
+    print("\nO que deseja atualizar?")
     print("1 - Preço")
     print("2 - Estoque")
     print("3 - Tudo")
 
-opcao = input("Escolha uma opção: ")
+    opcao = input("Escolha uma opção: ")
 
-if opcao == "1":
-        produto["preço"] = float(input("Novo preço: R$ "))
-        print("\nPreço atualizado com sucesso!")
+    if opcao == "1":
+            produto["preço"] = float(input("Novo preço: R$ "))
+            print("\nPreço atualizado com sucesso!")
 
-elif opcao == "2":
-        produto["estoque"] = int(input("Novo estoque: "))
-        print("\nEstoque atualizado com sucesso!")
-    
-elif opcao == "3":
-        produto["nome"] = input("Novo nome: ").strip().capitalize()
-        produto["preço"] = float(input("Novo preço: R$ "))
-        produto["material"] = input("Novo material: ").strip().capitalize()
-        produto["estoque"] = int(input("Novo estoque: "))
-        print("\nProduto atualizado com sucesso!")
+    elif opcao == "2":
+            produto["estoque"] = int(input("Novo estoque: "))
+            print("\nEstoque atualizado com sucesso!")
+        
+    elif opcao == "3":
+            produto["nome"] = input("Novo nome: ").strip().capitalize()
+            produto["preço"] = float(input("Novo preço: R$ "))
+            produto["material"] = input("Novo material: ").strip().capitalize()
+            produto["estoque"] = int(input("Novo estoque: "))
+            print("\nProduto atualizado com sucesso!")
 
     else:
-        print("\nOpção inválida.")
+            print("\nOpção inválida.")
 
 #DELETE | Excluir produto()
 # - deletar produtos cadastrados
