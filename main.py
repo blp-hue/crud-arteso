@@ -16,7 +16,7 @@ from arteso.cadastro_produtos.menu_produtos import menu_produtos
 def menu_produtos_principal():
     """ Controla o loop e as opções do CRUD de produtos """
     while True:
-        print("\n======= MENU PRODUTOS =======")
+        print("="*30, "MENU DE PRODUTOS", "="*30)
         print("1 - Adicionar Produto")
         print("2 - Excluir Produto")
         print("3 - Atualizar Produto")
@@ -52,7 +52,7 @@ def menu_produtos_principal():
 def menu_feiras_principal():
     """ Controla o loop e as opções do CRUD de feiras artesanais """
     while True:
-        print("\n======= MENU FEIRAS =======")
+        print("="*30, "MENU DE FEIRAS", "="*30)
         print("1 - Inscrição nas Feiras")
         print("2 - Ler Inscrição")
         print("3 - Atualizar Inscrição")
@@ -83,7 +83,7 @@ def menu_feiras_principal():
 def sistema_logado():
     """ Sub-menu intermediário acessado apenas após validação de login bem-sucedida """
     while True:
-        print("\n=== PAINEL ARTESÔ ===")
+        print("="*30, "PAINEL ARTESÔ", "="*30)
         print("1 - Gerenciar Produtos")
         print("2 - Gerenciar Feiras")
         print("0 - Desconectar (Log out)")
@@ -107,7 +107,7 @@ def sistema_logado():
 def main():
     """ Função mestra que inicializa o programa e gerencia o acesso à plataforma """
     while True:
-        print("\n=== BEM-VINDO AO ARTESÔ ===")
+        print("="*30, "BEM VINDO AO ARTESÔ", "="*30)
         print("1 - Login")
         print("2 - Cadastro")
         print("0 - Sair")
@@ -125,7 +125,7 @@ def main():
                 
         # Fluxo para criação de novas contas
         elif opcao == "2":
-            print("\n===== [Cadastro de Usuário] =====")
+            print("="*30, "CADASTRO DE USUÁRIO", "="*30)
             email = input("Digite seu e-mail: ").strip()
             senha = input("Digite sua senha: ")
             confirmar_senha = input("Confirme sua senha: ")

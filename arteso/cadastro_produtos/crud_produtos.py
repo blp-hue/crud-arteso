@@ -38,6 +38,7 @@ def adicionar_produtos(descricao_produtos):
 
 def consultar_produtos(descrição_produtos):
 
+    print("="*30, "CONSULTA DE PRODUTOS", "="*30)
     print(f"Os produtos cadastrados são: ")
 
     #lista todos os produtos cadastrados com um número ordinal associado
@@ -82,12 +83,12 @@ def consultar_produtos(descrição_produtos):
     
 
 
-print("="*30, "CONSULTA DE PRODUTOS", "="*30)
 
 # UPDATE  |  atualizar produto() 
 
 def atualizar_produto(descricao_produtos):
     
+    print("="*30, "ATUALIZAÇÃO DE PRODUTOS", "="*30)
     #condicional que verifica se existem produtos cadastrados
     if len(descricao_produtos) == 0:
         print("\nNão existem produtos cadastrados.")
@@ -147,12 +148,12 @@ def atualizar_produto(descricao_produtos):
     else:
         print("\nOpção inválida.")
 
-print("="*30, "ATUALIZAÇÃO DE PRODUTOS", "="*30)
 
 #DELETE | Excluir produto(s)
 
 def excluir_produto(descricao_produtos):
 
+    print("="*30, "EXCLUSÃO DE PRODUTOS", "="*30)
     #verifica se há produtos cadastrados
     if len(descricao_produtos) == 0:
         print("\nNão há produtos cadastrados.")
@@ -176,4 +177,3 @@ def excluir_produto(descricao_produtos):
 
     print(f"\nProduto '{produto_removido['nome']}' removido com sucesso!")
 
-print("="*30, "EXCLUSÃO DE PRODUTOS", "="*30)

@@ -13,6 +13,17 @@ data_inscricao = date.today() #retorna o dia que a inscrição será feita
 
 def inscrever_feiras():
 
+    print("="*30, "INFORMAÇÕES SOBRE AS FEIRAS", "="*30)
+
+    for c in cabecalho: #divide as palavras presentes no cabeçalho para melhor visualização
+        print(f"{c} \\ ", end=" ")
+
+    for f in info_feiras: #uso da indexação para organizar melhor as informações sobre as feiras
+        print(f"\n{f[0]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
+    
+    
+    
+    print("="*30, "INSCRIÇÃO NAS FEIRAS", "="*30)
     print("\nEm qual feira deseja se inscrever? ")
 
     #laço de repetição que retorna o nome de cada feira para facilitar a inscrição
@@ -43,23 +54,11 @@ with open("arteso/cadastro_feiras/informacao_feiras.csv", "r", encoding="utf-8")
     for linha in conteudo:
         info_feiras.append(linha)
 
-
-print("="*30, "INFORMAÇÕES SOBRE AS FEIRAS", "="*30)
-
-for c in cabecalho: #divide as palavras presentes no cabeçalho para melhor visualização
-    print(f"{c} \\ ", end=" ")
-
-for f in info_feiras: #uso da indexação para organizar melhor as informações sobre as feiras
-    print(f"\n{f[0]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
-
-print("="*30, "INSCRIÇÃO NAS FEIRAS", "="*30)
-
-inscrever_feiras()
-
 #READ | ler a inscrição na feira -> iterar o dicionário e chamar as infos da feira inscrita (como ta dentro da def acima)
 
 def ler_inscricao(inscricao_feira):
 
+    print("="*30, "INFORMAÇÕES SOBRE A INSCRIÇÃO", "="*30)
     print("As informações da sua inscrição: ")
 
     #laço de repetição que itera cada par chave-valor e printa na tela, gerando um formato de lista para leitura das informações cadastradas
@@ -70,10 +69,6 @@ def ler_inscricao(inscricao_feira):
     for f in info_feiras:
         if inscricao_feira["Feira"] in f[0].strip().capitalize():
             print(f"Informações sobre sua próxima feira, {inscricao_feira["Nome"]} -> {inscricao_feira["Feira"]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
-
-print("="*30, "INFORMAÇÕES SOBRE A INSCRIÇÃO", "="*30)
-
-ler_inscricao(inscricao_feira)
 
 #def painel_feiras():
 #    with open("arteso/cadastro_feiras/informacao_feiras.csv", "r", encoding="utf-8") as arquivo:
@@ -96,6 +91,7 @@ ler_inscricao(inscricao_feira)
 #adicionar tratamento de exceção
 
 def atualizar_inscricao(inscricao_feira):
+    print("="*30, "ATUALIZAR INSCRIÇÃO", "="*30)
 
     #condicional para verificar se há inscrição
     if len(inscricao_feira) == 0:
@@ -154,6 +150,7 @@ def atualizar_inscricao(inscricao_feira):
 
 
 def deletar_inscricao(inscricao_feira):
+    print("="*30, "DELETAR INSCRIÇÃO", "="*30)
 
     #verificar se há inscrição 
     if len(inscricao_feira) == 0:
