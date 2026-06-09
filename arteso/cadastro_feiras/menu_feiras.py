@@ -21,7 +21,7 @@ def menu_feiras():
         
         if opcao == "1":
             # Primeiro mostra o catálogo de feiras que guardamos na função
-            painel_feiras() 
+            #painel_feiras() 
             # Depois faz a inscrição
             inscrever_feiras()
         elif opcao == "2":

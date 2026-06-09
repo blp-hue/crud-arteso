@@ -1,5 +1,5 @@
 from arteso.login.verificacao_email import *
-from arteso.cadastro_produtos.crud import *
+from arteso.cadastro_produtos.crud_produtos import *
 #formato: {"email": "senha"}
 banco_usuarios = {}
 
