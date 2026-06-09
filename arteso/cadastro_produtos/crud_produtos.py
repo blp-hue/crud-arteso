@@ -15,10 +15,9 @@ def adicionar_produtos(descricao_produtos):
 
         produto = input("\nDigite o nome do produto: ").strip().capitalize()
 
-        #for p in descricao_produtos: #esse for adiciona apenas a chave nome na lista para ter onde fazer a busca do produto
-         #   descricao_produtos.append (p["nome"])
+      
                     
-        if not any(chave["nome"] == produto for chave in descricao_produtos): #possui a mesma função da outra lista criada e evita a duplicidade pra não trabalhar com varias listas
+        if not any(chave["nome"] == produto for chave in descricao_produtos): #evita duplicidade de dados para não criar outra lista
             print(f"\nProduto '{produto}' adicionado!")
 
             print(f"\nAdicione a descrição do produto: ") #criação do dicionário com a descrição do produto
@@ -95,17 +94,21 @@ print("="*30, "CONSULTA DE PRODUTOS", "="*30)
 # - atualização de preço e estoque
 
 def atualizar_produto(descricao_produtos):
+    
+    #condicional que verifica se existem produtos cadastrados
     if len(descricao_produtos) == 0:
         print("\nNão existem produtos cadastrados.")
         return
 
     print("\nProdutos cadastrados.")
 
+    #retorna a lista de produtos 
     for i in range(len(descricao_produtos)):
             print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
 
     num_produto = int(input("\nDigite o número do produto que deseja atualizar: "))
 
+    #verifica se o número ordinal associado ao produto é realmente válido
     if num_produto < 1 or num_produto > len(descricao_produtos):
             print("\nProduto inválido.")
             return
@@ -139,6 +142,8 @@ def atualizar_produto(descricao_produtos):
     else:
             print("\nOpção inválida.")
 
+print("="*30, "ATUALIZAÇÃO DE PRODUTOS", "="*30)
+
 #DELETE | Excluir produto()
 # - deletar produtos cadastrados
 
@@ -162,3 +167,5 @@ def excluir_produto(descricao_produtos):
     produto_removido = descricao_produtos.pop(num_produto - 1)
 
     print(f"\nProduto '{produto_removido['nome']}' removido com sucesso!")
+
+print("="*30, "EXCLUSÃO DE PRODUTOS", "="*30)
