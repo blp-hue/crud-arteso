@@ -2,7 +2,6 @@
 #   FUNÇÕES DO CRUD
 # ==================================================
 
-
 # CREATE  |  inscrição na feira
 
 import csv 
@@ -43,26 +42,26 @@ def inscrever_feiras():
             print(f"Informações sobre sua próxima feira, {inscricao_feira["Nome"]} -> {inscricao_feira["Feira"]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
 
 
-with open ("C:\\Users\\blyra\\Downloads\\informacao_feiras.csv", "r", encoding="utf-8") as arquivo:
-    conteudo = csv.reader(arquivo, delimiter=',')
-    cabecalho = next(conteudo) #separa a primeira linha automaticamente para fazer um cabeçalho
+# with open("arteso/cadastro_feiras/informacao_feiras.csv", "r", encoding="utf-8") as arquivo:
+#     conteudo = csv.reader(arquivo, delimiter=',')
+#     cabecalho = next(conteudo)
 
-    #adiciona cada linha da planilha em uma lista
-    for linha in conteudo:
-        info_feiras.append(linha)
+#     #adiciona cada linha da planilha em uma lista
+#     for linha in conteudo:
+#         info_feiras.append(linha)
 
 
-print("="*30, "INFORMAÇÕES SOBRE AS FEIRAS", "="*30)
+# print("="*30, "INFORMAÇÕES SOBRE AS FEIRAS", "="*30)
 
-for c in cabecalho: #divide as palavras presentes no cabeçalho para melhor visualização
-    print(f"{c} \\ ", end=" ")
+# for c in cabecalho: #divide as palavras presentes no cabeçalho para melhor visualização
+#     print(f"{c} \\ ", end=" ")
 
-for f in info_feiras: #uso da indexação para organizar melhor as informações sobre as feiras
-    print(f"\n{f[0]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
+# for f in info_feiras: #uso da indexação para organizar melhor as informações sobre as feiras
+#     print(f"\n{f[0]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
 
-print("="*30, "INSCRIÇÃO NAS FEIRAS", "="*30)
+# print("="*30, "INSCRIÇÃO NAS FEIRAS", "="*30)
 
-inscrever_feiras()
+# inscrever_feiras()
 
 #READ | ler a inscrição na feira -> iterar o dicionário e chamar as infos da feira inscrita (como ta dentro da def acima)
 
@@ -79,10 +78,25 @@ def ler_inscricao(inscricao_feira):
         if inscricao_feira["Feira"] in f[0].strip().capitalize():
             print(f"Informações sobre sua próxima feira, {inscricao_feira["Nome"]} -> {inscricao_feira["Feira"]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
 
-print("="*30, "INFORMAÇÕES SOBRE A INSCRIÇÃO", "="*30)
+#print("="*30, "INFORMAÇÕES SOBRE A INSCRIÇÃO", "="*30)
 
-ler_inscricao(inscricao_feira)
+#ler_inscricao(inscricao_feira)
 
+def painel_feiras():
+    with open("arteso/cadastro_feiras/informacao_feiras.csv", "r", encoding="utf-8") as arquivo:
+        conteudo = csv.reader(arquivo, delimiter=',')
+        cabecalho = next(conteudo)
+
+    #adiciona cada linha da planilha em uma lista
+    for linha in conteudo:
+        info_feiras.append(linha)
+    print("\n" + "="*30, "INFORMAÇÕES SOBRE AS FEIRAS", "="*30)
+
+    for c in cabecalho: 
+        print(f"{c} \\ ", end=" ")
+
+    for f in info_feiras: 
+        print(f"\n{f[0]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
 #IDEIAS -> não sei se daria certo, mas eu e gabriel estavamos comentando de ter a opção de poder ir para outra função ao terminar uma, deve ter jeitos melhores de fazer
 #pensei so pq o read ficou mt simples 
 
@@ -106,14 +120,14 @@ def atualizar_inscricao(inscricao_feira):
         print("\nVocê não realizou nenhuma inscrição.")
         return
 
-print("\nO que deseja atualizar?")
+    print("\nO que deseja atualizar?")
     print("1 - Feira")
     print("2 - Dados pessoais")
     print("3 - Tudo")
 
-opcao = input("Escolha uma opção: ")
+    opcao = input("Escolha uma opção: ")
 
-if opcao == "1":
+    if opcao == "1":
         print("\nFeiras disponíveis:")
         for f in info_feiras:
             print(f[0])

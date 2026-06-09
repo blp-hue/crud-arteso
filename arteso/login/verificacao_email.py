@@ -25,13 +25,3 @@ def validar_email(email):
 
     return True
 
-#formato: {"email": "senha"}
-banco_usuarios = {}
-
-def fazer_login(email, senha):
-    if email in banco_usuarios and banco_usuarios[email] == senha:
-        print("Login efetuado com sucesso! Bem-vindo.")
-        return True
-    else:
-        print("Erro: E-mail ou senha incorretos.")
-        return False

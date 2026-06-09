@@ -1,5 +1,5 @@
-from login import *
-
+from arteso.login.verificacao_email import *
+from arteso.cadastro_produtos.crud import *
 #formato: {"email": "senha"}
 banco_usuarios = {}
 
@@ -25,18 +25,10 @@ def cadastrar_usuario(email, senha, confirmar_senha):
     print("Cadastro realizado com sucesso!")
     return True
 
-
-print("--- TESTE DE CADASTRO ---")
-cadastrar_usuario("usuario.com", "123456", "123456")
-
-cadastrar_usuario("teste@email.com", "123456", "654321")
-
-cadastrar_usuario("joao@email.com", "senha123", "senha123")
-
-cadastrar_usuario("joao@email.com", "outrasenha", "outrasenha")
-
-print("\n--- TESTE DE LOGIN ---")
-
-fazer_login("joao@email.com", "senha_errada")
-
-fazer_login("joao@email.com", "senha123")
+def fazer_login(email, senha):
+    if email in banco_usuarios and banco_usuarios[email] == senha:
+        print("Login efetuado com sucesso! Bem-vindo.")
+        return True
+    else:
+        print("Erro: E-mail ou senha incorretos.")
+        return False
