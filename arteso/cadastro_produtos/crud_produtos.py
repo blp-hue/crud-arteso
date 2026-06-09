@@ -6,7 +6,7 @@
 
 def adicionar_produtos(descricao_produtos):
 
-    add_produto = input("\nDeseja adicionar produtos na loja? [S/N] ").strip().upper()#adicionar tratamento de exceção
+    add_produto = input("\nDeseja adicionar produto(s) na loja? [S/N] ").strip().upper()#adicionar tratamento de exceção
 
     while add_produto == "S":
 
@@ -27,7 +27,10 @@ def adicionar_produtos(descricao_produtos):
         else:
             print("\nProduto já existe na loja.")
 
-        add_produto = input("\nDeseja adicionar mais produtos? [S/N] ").strip().upper()#adicionar tratamento de exceção
+        add_produto = input("\nDeseja adicionar mais produtos? [S/N] ").strip().upper()#adicionar tratamento de exceção 
+
+    print("\nFim do cadastro de produtos")    
+
 
     return 0
 # READ    |  listar produto(s)
@@ -41,10 +44,22 @@ def consultar_produtos(descrição_produtos):
     for i in range (len(descrição_produtos)):
         print(f"{i+1}º produto: {descrição_produtos[i]["nome"]}")
 
+    consulta_geral = input("\nGostaria de fazer uma consulta geral? [S/N] -> ").strip().upper()#adicionar tratamento de exceção
+
+    #condicional que leva à lista de dicionários com todos os produtos e com print formatado auxiliado por um for
+    if consulta_geral == "S":
+        for g in range (len(descrição_produtos)):
+            print(f"{g+1}º produto: {descrição_produtos[g]}")
+        print("\nFim da consulta geral")
+    else:
+        print("\nVocê saiu da consulta geral")
+
+
     consulta_produto = input("\nGostaria consultar um produto? [S/N] -> ").strip().upper()#adicionar tratamento de exceção
 
     #condicional que valida o início do laço de repetição de consulta por produto
     if consulta_produto!="S":
+        
         print(f"\nFim da consulta")
         return False
     
@@ -67,17 +82,6 @@ def consultar_produtos(descrição_produtos):
             print("\nFim da consulta por produto")
             break
 
-    consulta_geral = input("\nGostaria de fazer uma consulta geral? [S/N] -> ").strip().upper()#adicionar tratamento de exceção
-
-    #condicional que leva à lista de dicionários com todos os produtos e com print formatado auxiliado por um for
-    if consulta_geral == "S":
-        for g in range (len(descrição_produtos)):
-            print(f"{g+1}º produto: {descrição_produtos[g]}")
-        print("\nFim da consulta geral")
-    else:
-        print("\nVocê saiu da consulta geral")
-    
-
 
 
 # UPDATE  |  atualizar produto() 
@@ -92,58 +96,62 @@ def atualizar_produto(descricao_produtos):
 
     print("\nProdutos cadastrados.")
 
-    #retorna a lista de produtos e o número ordinal associado ao produto
-    for i in range(len(descricao_produtos)):
-        print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
+    att_produto = input("\nDeseja atualizar produto(s) na loja? [S/N] ").strip().upper()#adicionar tratamento de exceção
 
-    num_produto = int(input("\nDigite o número do produto que deseja atualizar: ")) #adicionar tratamento de exceção
+    while att_produto == "S":
+        #retorna a lista de produtos e o número ordinal associado ao produto
+        for i in range(len(descricao_produtos)):
+            print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
 
-    #verifica se o número colocado no input é realmente válido e associado a um produto
-    if num_produto < 1 or num_produto > len(descricao_produtos):
-        print("\nProduto inválido.")
-        return
+        num_produto = int(input("\nDigite o número do produto que deseja atualizar: ")) #adicionar tratamento de exceção
 
-    #variável que recebe o dicionário do produto a ser atualizado
-    produto = descricao_produtos[num_produto - 1]
+        #verifica se o número colocado no input é realmente válido e associado a um produto
+        if num_produto < 1 or num_produto > len(descricao_produtos):
+            print("\nProduto inválido.")
+            return
 
-    print(f"\nProduto selecionado: {produto['nome']}")
+        #variável que recebe o dicionário do produto a ser atualizado
+        produto = descricao_produtos[num_produto - 1]
 
-    #menu que guia o usuário nas opções de atualização
-    print("\nO que deseja atualizar?")
-    print("1 - Nome")
-    print("2 - Preço")
-    print("3 - Material")
-    print("4 - Estoque")
-    print("5 - Tudo")
+        print(f"\nProduto selecionado: {produto['nome']}")
 
-    opcao = int(input("Escolha o número da opção: ")) #adicionar tratamento de exceção
+        #menu que guia o usuário nas opções de atualização
+        print("\nO que deseja atualizar?")
+        print("1 - Nome")
+        print("2 - Preço")
+        print("3 - Material")
+        print("4 - Estoque")
+        print("5 - Tudo")
 
-    if opcao == 1:
-        produto["nome"] = input("Novo nome: ").strip().capitalize()
-        print("\nNome atualizado com sucesso!")
-    
-    elif opcao == 2:
-        produto["preço"] = float(input("Novo preço: R$ ")) #adicionar tratamento de exceção
-        print("\nPreço atualizado com sucesso!")
+        opcao = int(input("Escolha o número da opção: ")) #adicionar tratamento de exceção
 
-    elif opcao == 3:
-        produto["material"] = input("Novo material: ").strip().capitalize()
-        print("\nMaterial atualizado com sucesso!")
-  
-    elif opcao == 4:
-        produto["estoque"] = int(input("Novo estoque: "))#adicionar tratamento de exceção
-        print("\nEstoque atualizado com sucesso!")
+        if opcao == 1:
+            produto["nome"] = input("Novo nome: ").strip().capitalize()
+            print("\nNome atualizado com sucesso!")
         
-    elif opcao == 5:
-        produto["nome"] = input("Novo nome: ").strip().capitalize()
-        produto["preço"] = float(input("Novo preço: R$ ")) #adicionar tratamento de exceção
-        produto["material"] = input("Novo material: ").strip().capitalize()
-        produto["estoque"] = int(input("Novo estoque: ")) #adicionar tratamento de exceção
-        print("\nProduto atualizado com sucesso!")
+        elif opcao == 2:
+            produto["preço"] = float(input("Novo preço: R$ ")) #adicionar tratamento de exceção
+            print("\nPreço atualizado com sucesso!")
 
-    else:
-        print("\nOpção inválida.")
+        elif opcao == 3:
+            produto["material"] = input("Novo material: ").strip().capitalize()
+            print("\nMaterial atualizado com sucesso!")
+    
+        elif opcao == 4:
+            produto["estoque"] = int(input("Novo estoque: "))#adicionar tratamento de exceção
+            print("\nEstoque atualizado com sucesso!")
+            
+        elif opcao == 5:
+            produto["nome"] = input("Novo nome: ").strip().capitalize()
+            produto["preço"] = float(input("Novo preço: R$ ")) #adicionar tratamento de exceção
+            produto["material"] = input("Novo material: ").strip().capitalize()
+            produto["estoque"] = int(input("Novo estoque: ")) #adicionar tratamento de exceção
+            print("\nProduto atualizado com sucesso!")
 
+        else:
+            print("\nOpção inválida.")
+
+    print("\nFim da atualização")
 
 #DELETE | Excluir produto(s)
 
@@ -156,20 +164,27 @@ def excluir_produto(descricao_produtos):
         return
 
     print("\nProdutos cadastrados:")
+    
+    del_produto = input("\nDeseja excluir produto(s) na loja? [S/N] ").strip().upper()#adicionar tratamento de exceção
 
-    #laço de repetição que lista os produtos cadastrados e mostra os números ordinais associados a cada produto
-    for i in range(len(descricao_produtos)):
-        print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
+    while del_produto == "S":
 
-    num_produto = int(input("\nDigite o número do produto que deseja excluir: "))#adicionar tratamento de exceção
+        #laço de repetição que lista os produtos cadastrados e mostra os números ordinais associados a cada produto
+        for i in range(len(descricao_produtos)):
+            print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
 
-    #verifica se o número do input é válido e corresponde a um dos produtos
-    if num_produto < 1 or num_produto > len(descricao_produtos):
-        print("\nProduto inválido.")
-        return
+        num_produto = int(input("\nDigite o número do produto que deseja excluir: "))#adicionar tratamento de exceção
 
-    #variável que recebe o dicionário do produto que foi removido pelo método .pop()
-    produto_removido = descricao_produtos.pop(num_produto - 1)
+        #verifica se o número do input é válido e corresponde a um dos produtos
+        if num_produto < 1 or num_produto > len(descricao_produtos):
+            print("\nProduto inválido.")
+            return
 
-    print(f"\nProduto '{produto_removido['nome']}' removido com sucesso!")
+        #variável que recebe o dicionário do produto que foi removido pelo método .pop()
+        produto_removido = descricao_produtos.pop(num_produto - 1)
 
+        print(f"\nProduto '{produto_removido['nome']}' removido com sucesso!")
+
+        del_produto = input("\nDeseja excluir produtos na loja? [S/N] ").strip().upper()#adicionar tratamento de exceção
+
+    print("\nFim da exclusão de produtos.")
