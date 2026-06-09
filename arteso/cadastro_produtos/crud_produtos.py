@@ -122,8 +122,8 @@ def atualizar_produto(descricao_produtos):
     opcao = input("Escolha uma opção: ")
 
     if opcao == "1":
-    produto["nome"] = input("Novo nome: ")
-        print("\nNome atualizado com sucesso!)
+        produto["nome"] = input("Novo nome: ")
+        print("\nNome atualizado com sucesso!")
     
     elif opcao == "2":
         produto["preço"] = float(input("Novo preço: R$ "))
