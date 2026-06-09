@@ -5,8 +5,8 @@
 # Importação de todas as funções e dados dos sub-módulos do sistema
 from arteso.login.verificacao_email import *
 from arteso.login.cadastro_login import *
-from arteso.cadastro_produtos.dados import *
-from arteso.cadastro_produtos.crud import *
+from arteso.cadastro_produtos.dados_produtos import *
+from arteso.cadastro_produtos.crud_produtos import *
 from arteso.cadastro_feiras.crud_feiras import *
 from arteso.cadastro_produtos.menu_produtos import menu_produtos
 
