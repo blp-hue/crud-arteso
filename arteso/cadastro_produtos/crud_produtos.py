@@ -5,8 +5,6 @@
 
 # CREATE  |  cadastro de produto(s) 
 
-#pensei em fazer um mini menu perguntando se quer criar ou nao, e provavelmente um while com uma condicional dentro pra criar um loop de cadastro de produto que pode ser interrompida
-
 def adicionar_produtos(descricao_produtos):
 
     add_produto = input("\nDeseja adicionar produtos na loja? [S/N] ").strip().upper()
@@ -37,9 +35,6 @@ def adicionar_produtos(descricao_produtos):
     return 0
 
 # READ    |  listar produto(s)
-
-# - poderia fazer um for para listar os produtos na lista e outro para o dicionário
-# - um for para ver colocar o indice e/ou chave para acessar um produto específico na lista e/ou no dicionario
 
 def consultar_produtos(descrição_produtos):
 
@@ -91,8 +86,6 @@ print("="*30, "CONSULTA DE PRODUTOS", "="*30)
 
 # UPDATE  |  atualizar produto() 
 
-# - atualização de preço e estoque
-
 def atualizar_produto(descricao_produtos):
     
     #condicional que verifica se existem produtos cadastrados
@@ -102,68 +95,83 @@ def atualizar_produto(descricao_produtos):
 
     print("\nProdutos cadastrados.")
 
-    #retorna a lista de produtos 
+    #retorna a lista de produtos e o número ordinal associado ao produto
     for i in range(len(descricao_produtos)):
-            print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
+        print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
 
     num_produto = int(input("\nDigite o número do produto que deseja atualizar: "))
 
-    #verifica se o número ordinal associado ao produto é realmente válido
+    #verifica se o número colocado no input é realmente válido e associado a um produto
     if num_produto < 1 or num_produto > len(descricao_produtos):
-            print("\nProduto inválido.")
-            return
+        print("\nProduto inválido.")
+        return
 
+    #variável que recebe o dicionário do produto a ser atualizado
     produto = descricao_produtos[num_produto - 1]
 
     print(f"\nProduto selecionado: {produto['nome']}")
 
+    #menu que guia o usuário nas opções de atualização
     print("\nO que deseja atualizar?")
-    print("1 - Preço")
-    print("2 - Estoque")
-    print("3 - Tudo")
+    print("1 - Nome")
+    print("2 - Preço")
+    print("3 - Material")
+    print("4 - Estoque")
+    print("5 - Tudo")
 
     opcao = input("Escolha uma opção: ")
 
     if opcao == "1":
-            produto["preço"] = float(input("Novo preço: R$ "))
-            print("\nPreço atualizado com sucesso!")
-
+    produto["nome"] = input("Novo nome: ")
+        print("\nNome atualizado com sucesso!)
+    
     elif opcao == "2":
-            produto["estoque"] = int(input("Novo estoque: "))
-            print("\nEstoque atualizado com sucesso!")
-        
+        produto["preço"] = float(input("Novo preço: R$ "))
+        print("\nPreço atualizado com sucesso!")
+
     elif opcao == "3":
-            produto["nome"] = input("Novo nome: ").strip().capitalize()
-            produto["preço"] = float(input("Novo preço: R$ "))
-            produto["material"] = input("Novo material: ").strip().capitalize()
-            produto["estoque"] = int(input("Novo estoque: "))
-            print("\nProduto atualizado com sucesso!")
+        produto["material"] = input("Novo material: ")
+        print("\nMaterial atualizado com sucesso!")
+  
+    elif opcao == "4":
+        produto["estoque"] = int(input("Novo estoque: "))
+        print("\nEstoque atualizado com sucesso!")
+        
+    elif opcao == "5":
+        produto["nome"] = input("Novo nome: ").strip().capitalize()
+        produto["preço"] = float(input("Novo preço: R$ "))
+        produto["material"] = input("Novo material: ").strip().capitalize()
+        produto["estoque"] = int(input("Novo estoque: "))
+        print("\nProduto atualizado com sucesso!")
 
     else:
-            print("\nOpção inválida.")
+        print("\nOpção inválida.")
 
 print("="*30, "ATUALIZAÇÃO DE PRODUTOS", "="*30)
 
-#DELETE | Excluir produto()
-# - deletar produtos cadastrados
+#DELETE | Excluir produto(s)
 
 def excluir_produto(descricao_produtos):
 
+    #verifica se há produtos cadastrados
     if len(descricao_produtos) == 0:
         print("\nNão há produtos cadastrados.")
         return
 
     print("\nProdutos cadastrados:")
 
+    #laço de repetição que lista os produtos cadastrados e mostra os números ordinais associados a cada produto
     for i in range(len(descricao_produtos)):
         print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
 
     num_produto = int(input("\nDigite o número do produto que deseja excluir: "))
 
+    #verifica se o número do input é válido e corresponde a um dos produtos
     if num_produto < 1 or num_produto > len(descricao_produtos):
         print("\nProduto inválido.")
         return
 
+    #variável que recebe o dicionário do produto que foi removido pelo método .pop()
     produto_removido = descricao_produtos.pop(num_produto - 1)
 
     print(f"\nProduto '{produto_removido['nome']}' removido com sucesso!")
