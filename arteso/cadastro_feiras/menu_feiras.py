@@ -17,20 +17,20 @@ def menu_feiras():
         print("5 - Voltar ao Menu Principal")
         print("===========================")
         
-        opcao = input("\nEscolha uma opção: ").strip()
+        opcao = int(input("\nEscolha uma opção: ")) #adicionar tratamento de exceção
         
-        if opcao == "1":
+        if opcao == 1:
             # Primeiro mostra o catálogo de feiras que guardamos na função
             #painel_feiras() 
             # Depois faz a inscrição
             inscrever_feiras()
-        elif opcao == "2":
+        elif opcao == 2:
             ler_inscricao(inscricao_feira)
-        elif opcao == "3":
+        elif opcao == 3:
             atualizar_inscricao(inscricao_feira)
-        elif opcao == "4":
+        elif opcao == 4:
             deletar_inscricao(inscricao_feira)
-        elif opcao == "5":
+        elif opcao == 5:
             print("\nRetornando ao painel principal...")
             break 
         else:

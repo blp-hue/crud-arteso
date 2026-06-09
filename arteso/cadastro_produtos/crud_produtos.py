@@ -2,18 +2,15 @@
 #   FUNÇÕES DO CRUD
 # ==================================================
 
-
 # CREATE  |  cadastro de produto(s) 
 
 def adicionar_produtos(descricao_produtos):
 
-    add_produto = input("\nDeseja adicionar produtos na loja? [S/N] ").strip().upper()
+    add_produto = input("\nDeseja adicionar produtos na loja? [S/N] ").strip().upper()#adicionar tratamento de exceção
 
     while add_produto == "S":
 
-        produto = input("\nDigite o nome do produto: ").strip().capitalize()
-
-      
+        produto = str(input("\nDigite o nome do produto: ")).strip().capitalize()#adicionar tratamento de exceção
                     
         if not any(chave["nome"] == produto for chave in descricao_produtos): #evita duplicidade de dados para não criar outra lista
             print(f"\nProduto '{produto}' adicionado!")
@@ -22,18 +19,17 @@ def adicionar_produtos(descricao_produtos):
 
             produtos = {
                 "nome":     produto,
-                "preço":    float(input("Valor do produto: R$ ")),
+                "preço":    float(input("Valor do produto: R$ ")),#adicionar tratamento de exceção
                 "material": input("Material do produto: ").strip().capitalize(),
-                "estoque":  int(input("Estoque do produto: "))
+                "estoque":  int(input("Estoque do produto: "))#adicionar tratamento de exceção
             }
             descricao_produtos.append(produtos) #adiciona o dicionário em uma lista para ter uma sequência de cadastros
         else:
             print("\nProduto já existe na loja.")
 
-        add_produto = input("\nDeseja adicionar mais produtos? [S/N] ").strip().upper()
+        add_produto = input("\nDeseja adicionar mais produtos? [S/N] ").strip().upper()#adicionar tratamento de exceção
 
     return 0
-
 # READ    |  listar produto(s)
 
 def consultar_produtos(descrição_produtos):
@@ -45,7 +41,7 @@ def consultar_produtos(descrição_produtos):
     for i in range (len(descrição_produtos)):
         print(f"{i+1}º produto: {descrição_produtos[i]["nome"]}")
 
-    consulta_produto = input("\nGostaria consultar um produto? [S/N] -> ").strip().upper()
+    consulta_produto = input("\nGostaria consultar um produto? [S/N] -> ").strip().upper()#adicionar tratamento de exceção
 
     #condicional que valida o início do laço de repetição de consulta por produto
     if consulta_produto!="S":
@@ -56,7 +52,7 @@ def consultar_produtos(descrição_produtos):
     #laço de repetição para consultar o dicionário de um produto específico de acordo com o número ordinal informado acima
     while True:
 
-        num_produto = int(input("\nDigite o número do produto conforme a lista acima: "))
+        num_produto = int(input("\nDigite o número do produto conforme a lista acima: ")) #adicionar tratamento de exceção
 
         #laço de repetição que itera a lista de dicionário até encontrar o produto indicado pelo número ordinal
         for n in range (len(descrição_produtos)):
@@ -71,7 +67,7 @@ def consultar_produtos(descrição_produtos):
             print("\nFim da consulta por produto")
             break
 
-    consulta_geral = input("\nGostaria de fazer uma consulta geral? [S/N] -> ").strip().upper()
+    consulta_geral = input("\nGostaria de fazer uma consulta geral? [S/N] -> ").strip().upper()#adicionar tratamento de exceção
 
     #condicional que leva à lista de dicionários com todos os produtos e com print formatado auxiliado por um for
     if consulta_geral == "S":
@@ -100,7 +96,7 @@ def atualizar_produto(descricao_produtos):
     for i in range(len(descricao_produtos)):
         print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
 
-    num_produto = int(input("\nDigite o número do produto que deseja atualizar: "))
+    num_produto = int(input("\nDigite o número do produto que deseja atualizar: ")) #adicionar tratamento de exceção
 
     #verifica se o número colocado no input é realmente válido e associado a um produto
     if num_produto < 1 or num_produto > len(descricao_produtos):
@@ -120,29 +116,29 @@ def atualizar_produto(descricao_produtos):
     print("4 - Estoque")
     print("5 - Tudo")
 
-    opcao = input("Escolha uma opção: ")
+    opcao = int(input("Escolha o número da opção: ")) #adicionar tratamento de exceção
 
-    if opcao == "1":
-        produto["nome"] = input("Novo nome: ")
+    if opcao == 1:
+        produto["nome"] = input("Novo nome: ").strip().capitalize()
         print("\nNome atualizado com sucesso!")
     
-    elif opcao == "2":
-        produto["preço"] = float(input("Novo preço: R$ "))
+    elif opcao == 2:
+        produto["preço"] = float(input("Novo preço: R$ ")) #adicionar tratamento de exceção
         print("\nPreço atualizado com sucesso!")
 
-    elif opcao == "3":
-        produto["material"] = input("Novo material: ")
+    elif opcao == 3:
+        produto["material"] = input("Novo material: ").strip().capitalize()
         print("\nMaterial atualizado com sucesso!")
   
-    elif opcao == "4":
-        produto["estoque"] = int(input("Novo estoque: "))
+    elif opcao == 4:
+        produto["estoque"] = int(input("Novo estoque: "))#adicionar tratamento de exceção
         print("\nEstoque atualizado com sucesso!")
         
-    elif opcao == "5":
+    elif opcao == 5:
         produto["nome"] = input("Novo nome: ").strip().capitalize()
-        produto["preço"] = float(input("Novo preço: R$ "))
+        produto["preço"] = float(input("Novo preço: R$ ")) #adicionar tratamento de exceção
         produto["material"] = input("Novo material: ").strip().capitalize()
-        produto["estoque"] = int(input("Novo estoque: "))
+        produto["estoque"] = int(input("Novo estoque: ")) #adicionar tratamento de exceção
         print("\nProduto atualizado com sucesso!")
 
     else:
@@ -165,7 +161,7 @@ def excluir_produto(descricao_produtos):
     for i in range(len(descricao_produtos)):
         print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
 
-    num_produto = int(input("\nDigite o número do produto que deseja excluir: "))
+    num_produto = int(input("\nDigite o número do produto que deseja excluir: "))#adicionar tratamento de exceção
 
     #verifica se o número do input é válido e corresponde a um dos produtos
     if num_produto < 1 or num_produto > len(descricao_produtos):
