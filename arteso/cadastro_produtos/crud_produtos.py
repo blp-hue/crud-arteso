@@ -94,11 +94,10 @@ def atualizar_produto(descricao_produtos):
         print("\nNão existem produtos cadastrados.")
         return
 
-    print("\nProdutos cadastrados.")
-
     att_produto = input("\nDeseja atualizar produto(s) na loja? [S/N] ").strip().upper()#adicionar tratamento de exceção
 
     while att_produto == "S":
+        print("\nProdutos cadastrados.")
         #retorna a lista de produtos e o número ordinal associado ao produto
         for i in range(len(descricao_produtos)):
             print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
@@ -151,6 +150,8 @@ def atualizar_produto(descricao_produtos):
         else:
             print("\nOpção inválida.")
 
+        att_produto = input("\nDeseja adicionar mais produtos? [S/N] ").strip().upper()#adicionar tratamento de exceção
+
     print("\nFim da atualização")
 
 #DELETE | Excluir produto(s)
@@ -163,12 +164,10 @@ def excluir_produto(descricao_produtos):
         print("\nNão há produtos cadastrados.")
         return
 
-    print("\nProdutos cadastrados:")
-    
     del_produto = input("\nDeseja excluir produto(s) na loja? [S/N] ").strip().upper()#adicionar tratamento de exceção
 
     while del_produto == "S":
-
+        print("\nProdutos cadastrados:")
         #laço de repetição que lista os produtos cadastrados e mostra os números ordinais associados a cada produto
         for i in range(len(descricao_produtos)):
             print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
