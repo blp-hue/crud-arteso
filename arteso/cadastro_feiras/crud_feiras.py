@@ -87,16 +87,16 @@ def painel_feiras():
         conteudo = csv.reader(arquivo, delimiter=',')
         cabecalho = next(conteudo)
 
-    #adiciona cada linha da planilha em uma lista
-    for linha in conteudo:
-        info_feiras.append(linha)
-    print("\n" + "="*30, "INFORMAÇÕES SOBRE AS FEIRAS", "="*30)
+        #adiciona cada linha da planilha em uma lista
+        for linha in conteudo:
+            info_feiras.append(linha)
+        print("\n" + "="*30, "INFORMAÇÕES SOBRE AS FEIRAS", "="*30)
 
-    for c in cabecalho: 
-        print(f"{c} \\ ", end=" ")
+        for c in cabecalho: 
+            print(f"{c} \\ ", end=" ")
 
-    for f in info_feiras: 
-        print(f"\n{f[0]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
+        for f in info_feiras: 
+            print(f"\n{f[0]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
 #IDEIAS -> não sei se daria certo, mas eu e gabriel estavamos comentando de ter a opção de poder ir para outra função ao terminar uma, deve ter jeitos melhores de fazer
 #pensei so pq o read ficou mt simples 
 

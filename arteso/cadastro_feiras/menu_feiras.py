@@ -1,8 +1,8 @@
 # ==================================================
 #   Imports iniciais
 # ==================================================
-from menu_feiras import *
-from crud_feiras import *
+from arteso.cadastro_feiras.menu_feiras import *
+from arteso.cadastro_feiras.crud_feiras import *
 # ==================================================
 #   Main || LOOP INICIAL
 # ==================================================
