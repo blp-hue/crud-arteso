@@ -125,8 +125,11 @@ def main():
                 
         # Fluxo para criação de novas contas
         elif opcao == "2":
-            print("\n[Menu de Cadastro de Usuário]")
-            cadastrar_usuario() # Invoca a rotina de criação de conta e senha
+            print("\n===== [Cadastro de Usuário] =====")
+            email = input("Digite seu e-mail: ").strip()
+            senha = input("Digite sua senha: ")
+            confirmar_senha = input("Confirme sua senha: ")
+            cadastrar_usuario(email, senha, confirmar_senha) # Invoca a rotina de criação de conta e senha
             
         # Encerramento definitivo da aplicação
         elif opcao == "0":
