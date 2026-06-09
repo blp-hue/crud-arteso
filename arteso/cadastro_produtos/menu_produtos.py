@@ -1,6 +1,6 @@
 # Dentro de arteso/cadastro_produtos/menu.py (ou crud.py)
 
-from arteso.cadastro_produtos.crud import *
+from arteso.cadastro_produtos.crud_produtos import *
 
 def menu_produtos(descricao_produtos):
     """O antigo 'main interno' adaptado para ser uma função controladora"""
