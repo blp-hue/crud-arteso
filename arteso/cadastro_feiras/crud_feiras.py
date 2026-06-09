@@ -29,39 +29,32 @@ def inscrever_feiras():
     inscricao_feira["Quantidade de produtos"] = input("Digite quantos produtos irá levar: ")
     inscricao_feira["Data de inscrição"] = data_inscricao.strftime("%d/%m/%Y")
 
-
-    #verifica se a artesã já está inscrita em outra feira 
-    #if inscricao_feira["feira"]!="":
-        #    print(f"Sua inscrição foi feita no dia {inscricao_feira["data"]}. Delete a inscrição ou espere uma semana.")
-    #else:    
-        #    print("\nInscrição feita com sucesso!")
-
     #laço de repetição que itera a lista de feiras e encontra a feira que a artesã está inscrita para retornar informações específicas
     for f in info_feiras:
         if inscricao_feira["Feira"] in f[0].strip().capitalize():
             print(f"Informações sobre sua próxima feira, {inscricao_feira["Nome"]} -> {inscricao_feira["Feira"]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
 
 
-# with open("arteso/cadastro_feiras/informacao_feiras.csv", "r", encoding="utf-8") as arquivo:
-#     conteudo = csv.reader(arquivo, delimiter=',')
-#     cabecalho = next(conteudo)
+with open("arteso/cadastro_feiras/informacao_feiras.csv", "r", encoding="utf-8") as arquivo:
+    conteudo = csv.reader(arquivo, delimiter=',')
+    cabecalho = next(conteudo)
 
-#     #adiciona cada linha da planilha em uma lista
-#     for linha in conteudo:
-#         info_feiras.append(linha)
+#adiciona cada linha da planilha em uma lista:
+    for linha in conteudo:
+        info_feiras.append(linha)
 
 
-# print("="*30, "INFORMAÇÕES SOBRE AS FEIRAS", "="*30)
+print("="*30, "INFORMAÇÕES SOBRE AS FEIRAS", "="*30)
 
-# for c in cabecalho: #divide as palavras presentes no cabeçalho para melhor visualização
-#     print(f"{c} \\ ", end=" ")
+for c in cabecalho: #divide as palavras presentes no cabeçalho para melhor visualização
+    print(f"{c} \\ ", end=" ")
 
-# for f in info_feiras: #uso da indexação para organizar melhor as informações sobre as feiras
-#     print(f"\n{f[0]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
+for f in info_feiras: #uso da indexação para organizar melhor as informações sobre as feiras
+    print(f"\n{f[0]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
 
-# print("="*30, "INSCRIÇÃO NAS FEIRAS", "="*30)
+print("="*30, "INSCRIÇÃO NAS FEIRAS", "="*30)
 
-# inscrever_feiras()
+inscrever_feiras()
 
 #READ | ler a inscrição na feira -> iterar o dicionário e chamar as infos da feira inscrita (como ta dentro da def acima)
 
@@ -78,48 +71,38 @@ def ler_inscricao(inscricao_feira):
         if inscricao_feira["Feira"] in f[0].strip().capitalize():
             print(f"Informações sobre sua próxima feira, {inscricao_feira["Nome"]} -> {inscricao_feira["Feira"]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
 
-#print("="*30, "INFORMAÇÕES SOBRE A INSCRIÇÃO", "="*30)
+print("="*30, "INFORMAÇÕES SOBRE A INSCRIÇÃO", "="*30)
 
-#ler_inscricao(inscricao_feira)
+ler_inscricao(inscricao_feira)
 
-def painel_feiras():
-    with open("arteso/cadastro_feiras/informacao_feiras.csv", "r", encoding="utf-8") as arquivo:
-        conteudo = csv.reader(arquivo, delimiter=',')
-        cabecalho = next(conteudo)
+#def painel_feiras():
+#    with open("arteso/cadastro_feiras/informacao_feiras.csv", "r", encoding="utf-8") as arquivo:
+#        conteudo = csv.reader(arquivo, delimiter=',')
+#        cabecalho = next(conteudo)
 
         #adiciona cada linha da planilha em uma lista
-        for linha in conteudo:
-            info_feiras.append(linha)
-        print("\n" + "="*30, "INFORMAÇÕES SOBRE AS FEIRAS", "="*30)
+#        for linha in conteudo:
+#           info_feiras.append(linha)
+#        print("\n" + "="*30, "INFORMAÇÕES SOBRE AS FEIRAS", "="*30)
 
-        for c in cabecalho: 
-            print(f"{c} \\ ", end=" ")
+#       for c in cabecalho: 
+#            print(f"{c} \\ ", end=" ")
 
-        for f in info_feiras: 
-            print(f"\n{f[0]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
-#IDEIAS -> não sei se daria certo, mas eu e gabriel estavamos comentando de ter a opção de poder ir para outra função ao terminar uma, deve ter jeitos melhores de fazer
-#pensei so pq o read ficou mt simples 
-
-#atalho_atualizar = input("Deseja atualizar a inscrição? [S/N] -> ").strip().upper()
-
-#if atalho_atualizar == "S":
-#    atualizar_inscricao()
-
-#atalho_deletar = input("Deseja deletar a inscrição? [S/N] -> ").strip().upper()
-
-#if atalho_deletar == "S":
-#    deletar_inscricao()
+#        for f in info_feiras: 
+#            print(f"\n{f[0]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
 
 
-#UPTADE | atualizar a inscrição na feira -> se deseja mudar de feira inscrita, precisa deletar toda a inscrição e fazer outra -> permite atualizar tudo ou só alguns campos.
-
+#UPTADE | atualizar a inscrição na feira -> permite atualizar tudo ou só alguns campos.
+#adicionar tratamento de exceção
 
 def atualizar_inscricao(inscricao_feira):
 
+    #condicional para verificar se há inscrição
     if len(inscricao_feira) == 0:
         print("\nVocê não realizou nenhuma inscrição.")
         return
 
+    #menu que guia a opção do usuário para a atualização que deseja
     print("\nO que deseja atualizar?")
     print("1 - Feira")
     print("2 - Dados pessoais")
@@ -127,6 +110,7 @@ def atualizar_inscricao(inscricao_feira):
 
     opcao = input("Escolha uma opção: ")
 
+    #atualiza a feira que está inscrita
     if opcao == "1":
         print("\nFeiras disponíveis:")
         for f in info_feiras:
@@ -137,6 +121,7 @@ def atualizar_inscricao(inscricao_feira):
 
         print("\nAtualizado com sucesso!")
 
+    #atualiza os dados pessoais inscritos
     elif opcao == "2":
         inscricao_feira["Nome"] = input("Novo nome: ").strip().capitalize()
         inscricao_feira["Endereço"] = input("Novo endereço: ")
@@ -145,6 +130,7 @@ def atualizar_inscricao(inscricao_feira):
 
         print("\nDados atualizados com sucesso!")
 
+    #atualiza todos os aspectos da inscrição
     elif opcao == "3":
         print("\nRefazendo inscrição...")
 
@@ -169,13 +155,15 @@ def atualizar_inscricao(inscricao_feira):
 
 def deletar_inscricao(inscricao_feira):
 
+    #verificar se há inscrição 
     if len(inscricao_feira) == 0:
         print("\nNão há inscrições para deletar.")
         return
 
+    #menu para guiar o usuário em deletar a inscrição
     print("\nO que deseja fazer?")
     print("1 - Deletar totalmente a inscrição")
-    print("2 - Realizar inscrição em outra feira")
+    print("2 - Realizar inscrição em outra feira") #talvez isso aqui não seja preciso
 
     opcao = input("Escolha uma opção: ")
 
