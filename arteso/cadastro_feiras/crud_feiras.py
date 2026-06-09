@@ -33,7 +33,7 @@ def inscrever_feiras():
     print("OBSERVAÇÃO: Você só pode se inscrever em apenas uma feira a cada semana. Fique atenta aos prazos.")
 
     #adição do par chave-valor no dicionário que irá conter a inscrição da artesã
-    inscricao_feira["Feira"] = input("\nDigite o nome da feira (de acordo com a lista): ").strip().capitalize()
+    inscricao_feira["Feira"] = input("\nDigite o nome da feira (igual ao da lista): ").strip().capitalize()
     inscricao_feira["Nome"] = input("Digite seu nome completo: ").strip().capitalize()
     inscricao_feira["Endereço"] = input("Digite seu endereço: ").strip().capitalize()
     inscricao_feira["Bairro"] = input("Digite seu bairro: ").strip().capitalize()
@@ -119,10 +119,10 @@ def atualizar_inscricao(inscricao_feira):
 
     #atualiza os dados pessoais inscritos
     elif opcao == 2:
-        inscricao_feira["Nome"] = input("Novo nome: ").strip().capitalize()
-        inscricao_feira["Endereço"] = input("Novo endereço: ").strip().capitalize()
+        inscricao_feira["Nome"] = input("\nDigite seu nome completo: ").strip().capitalize()
+        inscricao_feira["Endereço"] = input("Digite o seu endereço: ").strip().capitalize()
         inscricao_feira["Bairro"] = input("Digite seu bairro: ").strip().capitalize()
-        inscricao_feira["Quantidade de produtos"] = int(input("Nova quantidade de produtos: ")) #adicionar tratamento de exceção
+        inscricao_feira["Quantidade de produtos"] = int(input("Digite quantidade de produtos: ")) #adicionar tratamento de exceção
 
         print("\nDados atualizados com sucesso!")
 
@@ -133,11 +133,11 @@ def atualizar_inscricao(inscricao_feira):
         for f in info_feiras:
             print(f[0])
 
-        inscricao_feira["Feira"] = input("\nNova feira: ").strip().capitalize()
-        inscricao_feira["Nome"] = input("Nome completo: ").strip().capitalize()
-        inscricao_feira["Endereço"] = input("Endereço: ").strip().capitalize()
+        inscricao_feira["Feira"] = input("\nDigite o nome feira (igual ao da lista): ").strip().capitalize()
+        inscricao_feira["Nome"] = input("Digite seu nome completo: ").strip().capitalize()
+        inscricao_feira["Endereço"] = input("Digite seu endereço: ").strip().capitalize()
         inscricao_feira["Bairro"] = input("Digite seu bairro: ").strip().capitalize()
-        inscricao_feira["Quantidade de produtos"] = int(input("Quantidade de produtos: ")) #adicionar tratamento de exceção
+        inscricao_feira["Quantidade de produtos"] = int(input("Digite a quantidade de produtos: ")) #adicionar tratamento de exceção
         inscricao_feira["Data de inscrição"] = data_inscricao.strftime("%d/%m/%Y")
 
         print("\nInscrição atualizada com sucesso!")
