@@ -6,9 +6,11 @@
 
 import csv 
 from datetime import date
+from arteso.exception_value import *
 
 info_feiras = [] #lista composta que contém as informações sobre as feiras retiradas do arquivo csv
 inscricao_feira = {} #dicionário que irá conter as informações da inscrição nas feiras
+tupla_feiras = () #tupla para guardar os nomes das feiras por serem imutáveis
 data_inscricao = date.today() #retorna o dia que a inscrição será feita
 
 def inscrever_feiras():
@@ -27,8 +29,8 @@ def inscrever_feiras():
     print("\nEm qual feira deseja se inscrever? ")
 
     #laço de repetição que retorna o nome de cada feira para facilitar a inscrição
-    for f in info_feiras:
-        print(f"{f[0]}")
+    for f in tupla_feiras:
+        print(f)
 
     print("OBSERVAÇÃO: Você só pode se inscrever em apenas uma feira a cada semana. Fique atenta aos prazos.")
 
@@ -37,14 +39,13 @@ def inscrever_feiras():
     inscricao_feira["Nome"] = input("Digite seu nome completo: ").strip().capitalize()
     inscricao_feira["Endereço"] = input("Digite seu endereço: ").strip().capitalize()
     inscricao_feira["Bairro"] = input("Digite seu bairro: ").strip().capitalize()
-    inscricao_feira["Quantidade de produtos"] = int(input("Digite quantos produtos irá levar: "))
+    inscricao_feira["Quantidade de produtos"] = ler_inteiro("Digite a quantidade de produtos: ")
     inscricao_feira["Data de inscrição"] = data_inscricao.strftime("%d/%m/%Y")
 
     #laço de repetição que itera a lista de feiras e encontra a feira que a artesã está inscrita para retornar informações específicas
     for f in info_feiras:
         if inscricao_feira["Feira"] in f[0].strip().capitalize():
             print(f"Informações sobre sua próxima feira, {inscricao_feira["Nome"]} -> {inscricao_feira["Feira"]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
-"""adicionar na parte de atualização"""
 
 with open("arteso/cadastro_feiras/informacao_feiras.csv", "r", encoding="utf-8") as arquivo:
     conteudo = csv.reader(arquivo, delimiter=',')
@@ -54,9 +55,17 @@ with open("arteso/cadastro_feiras/informacao_feiras.csv", "r", encoding="utf-8")
     for linha in conteudo:
         info_feiras.append(linha)
 
-#READ | ler a inscrição na feira -> iterar o dicionário e chamar as infos da feira inscrita (como ta dentro da def acima)
+#adiciona os nomes das feiras em uma tupla por concatenação
+for f in info_feiras:
+    tupla_feiras = tupla_feiras + (f[0],) 
+
+#READ | ler a inscrição na feira -> iterar o dicionário e chamar as informações da feira inscrita 
 
 def ler_inscricao(inscricao_feira):
+    
+    if len(inscricao_feira) == 0:
+        print("\nVocê não realizou nenhuma inscrição.")
+        return
 
     print("="*30, "INFORMAÇÕES SOBRE A INSCRIÇÃO", "="*30)
     print("As informações da sua inscrição: ")
@@ -70,25 +79,8 @@ def ler_inscricao(inscricao_feira):
         if inscricao_feira["Feira"] in f[0].strip().capitalize():
             print(f"Informações sobre sua próxima feira, {inscricao_feira["Nome"]} -> {inscricao_feira["Feira"]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
 
-#def painel_feiras():
-#    with open("arteso/cadastro_feiras/informacao_feiras.csv", "r", encoding="utf-8") as arquivo:
-#        conteudo = csv.reader(arquivo, delimiter=',')
-#        cabecalho = next(conteudo)
-
-        #adiciona cada linha da planilha em uma lista
-#        for linha in conteudo:
-#           info_feiras.append(linha)
-#        print("\n" + "="*30, "INFORMAÇÕES SOBRE AS FEIRAS", "="*30)
-
-#       for c in cabecalho: 
-#            print(f"{c} \\ ", end=" ")
-
-#        for f in info_feiras: 
-#            print(f"\n{f[0]}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
-
-
 #UPTADE | atualizar a inscrição na feira -> permite atualizar tudo ou só alguns campos.
-#adicionar tratamento de exceção
+
 
 def atualizar_inscricao(inscricao_feira):
     print("="*30, "ATUALIZAR INSCRIÇÃO", "="*30)
@@ -98,56 +90,65 @@ def atualizar_inscricao(inscricao_feira):
         print("\nVocê não realizou nenhuma inscrição.")
         return
 
-    #menu que guia a opção do usuário para a atualização que deseja
-    print("\nO que deseja atualizar?")
-    print("1 - Feira")
-    print("2 - Dados pessoais")
-    print("3 - Tudo")
+    while True:
+        #menu que guia a opção do usuário para a atualização que deseja
+        print("\nO que deseja atualizar?")
+        print("1 - Feira")
+        print("2 - Dados pessoais")
+        print("3 - Tudo")
+        try:
+            opcao = int(input("Escolha o número da opção: "))
+             
+        except:
+            print("Digite uma número válido.")
+            continue
+        #atualiza a feira que está inscrita
+        if opcao == 1:
+            print("\nFeiras disponíveis:")
 
-    opcao = int(input("Escolha o número da opção: ")) #adicionar tratamento de exceção
+            for f in tupla_feiras:
+                print(f) 
 
-    #atualiza a feira que está inscrita
-    if opcao == 1:
-        print("\nFeiras disponíveis:")
-        for f in info_feiras:
-            print(f[0]) 
+            nova_feira = input("\nDigite a nova feira: ").strip().capitalize()
 
-        nova_feira = input("\nDigite a nova feira: ").strip().capitalize()
-        inscricao_feira["Feira"] = nova_feira #adicionar a parte de cima la
+            #identifica se a nova feira digitada corresponde aos nomes de feira 
+            for f in info_feiras:
+                if nova_feira in f[0].strip().capitalize():
+                    inscricao_feira["Feira"] = nova_feira.strip().capitalize()
 
-        print("\nAtualizado com sucesso!")
+            print("\nAtualizado com sucesso!")
+            break
 
-    #atualiza os dados pessoais inscritos
-    elif opcao == 2:
-        inscricao_feira["Nome"] = input("\nDigite seu nome completo: ").strip().capitalize()
-        inscricao_feira["Endereço"] = input("Digite o seu endereço: ").strip().capitalize()
-        inscricao_feira["Bairro"] = input("Digite seu bairro: ").strip().capitalize()
-        inscricao_feira["Quantidade de produtos"] = int(input("Digite quantidade de produtos: ")) #adicionar tratamento de exceção
+        #atualiza os dados pessoais inscritos
+        elif opcao == 2:
+            inscricao_feira["Nome"] = input("\nDigite seu nome completo: ").strip().capitalize()
+            inscricao_feira["Endereço"] = input("Digite o seu endereço: ").strip().capitalize()
+            inscricao_feira["Bairro"] = input("Digite seu bairro: ").strip().capitalize()
 
-        print("\nDados atualizados com sucesso!")
+            print("\nDados atualizados com sucesso!")
+            break
 
-    #atualiza todos os aspectos da inscrição
-    elif opcao == 3:
-        print("\nRefazendo inscrição...")
+        #atualiza todos os aspectos da inscrição
+        elif opcao == 3:
+            print("\nRefazendo inscrição...")
 
-        for f in info_feiras:
-            print(f[0])
+            for f in info_feiras:
+                print(f[0])
 
-        inscricao_feira["Feira"] = input("\nDigite o nome feira (igual ao da lista): ").strip().capitalize()
-        inscricao_feira["Nome"] = input("Digite seu nome completo: ").strip().capitalize()
-        inscricao_feira["Endereço"] = input("Digite seu endereço: ").strip().capitalize()
-        inscricao_feira["Bairro"] = input("Digite seu bairro: ").strip().capitalize()
-        inscricao_feira["Quantidade de produtos"] = int(input("Digite a quantidade de produtos: ")) #adicionar tratamento de exceção
-        inscricao_feira["Data de inscrição"] = data_inscricao.strftime("%d/%m/%Y")
+            inscricao_feira["Feira"] = input("\nDigite o nome feira (igual ao da lista): ").strip().capitalize()
+            inscricao_feira["Nome"] = input("Digite seu nome completo: ").strip().capitalize()
+            inscricao_feira["Endereço"] = input("Digite seu endereço: ").strip().capitalize()
+            inscricao_feira["Bairro"] = input("Digite seu bairro: ").strip().capitalize()
+            inscricao_feira["Quantidade de produtos"] = ler_inteiro("Digite a quantidade de produtos: ")
+            inscricao_feira["Data de inscrição"] = data_inscricao.strftime("%d/%m/%Y")
 
-        print("\nInscrição atualizada com sucesso!")
+            print("\nInscrição atualizada com sucesso!")
+            break
 
-    else:
-        print("\nOpção inválida.")
+        else:
+            print("\nOpção inválida.")
 
-
-#DELETE | deletar a inscrição na feira -> perguntar se deseja realizar a inscrição em outra feira ou deletar totalmente
-
+#DELETE | deletar a inscrição na feira 
 
 def deletar_inscricao(inscricao_feira):
     print("="*30, "DELETAR INSCRIÇÃO", "="*30)
@@ -156,45 +157,11 @@ def deletar_inscricao(inscricao_feira):
     if len(inscricao_feira) == 0:
         print("\nNão há inscrições para deletar.")
         return
-
-    #menu para guiar o usuário em deletar a inscrição
-    print("\nO que deseja fazer?")
-    print("1 - Deletar totalmente a inscrição")
-    print("2 - Realizar inscrição em outra feira") #talvez isso aqui não seja preciso
-
-    opcao = int(input("Escolha o número da opção: ")) #adicionar tratamento de exceção
-
-    # Deletar totalmente.
     
-    if opcao == 1:
+    confirmacao = input("\nTem certeza que deseja deletar sua inscrição? [S/N] ").strip().upper()
 
-        confirmacao = input("\nTem certeza que deseja deletar sua inscrição? [S/N] -> ").strip().upper()
-
-        if confirmacao == "S":
-            inscricao_feira.clear()
-            print("\nInscrição deletada com sucesso!")
-        else:
-            print("\nOperação cancelada.")
-
-
-    # Realizar a inscrição em outra feira
-    
-    """essa segunda opção não precisa ser feita, pois ela será feita na função atualizar_feiras"""
-    # elif opcao == "2":
-    #     print("\nRefazendo inscrição...")
-
-    #     print("\nFeiras disponíveis:")
-    #     for f in info_feiras:
-    #         print(f[0])
-
-    #     inscricao_feira["Feira"] = input("\nNova feira: ").strip().capitalize()
-    #     inscricao_feira["Nome"] = input("Nome completo: ").strip().capitalize()
-    #     inscricao_feira["Endereço"] = input("Endereço: ")
-    #     inscricao_feira["Bairro"] = input("Digite seu bairro: ")
-    #     inscricao_feira["Quantidade de produtos"] = input("Quantidade de produtos: ")
-    #     inscricao_feira["Data de inscrição"] = data_inscricao.strftime("%d/%m/%Y")
-
-    #     print("\nNova inscrição realizada com sucesso!")
-
-    # else:
-    #     print("\nOpção inválida.")
+    if confirmacao == "S":
+        inscricao_feira.clear()
+        print("\nInscrição deletada com sucesso!")
+    else:
+        print("\nOperação cancelada.")

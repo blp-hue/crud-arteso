@@ -27,7 +27,7 @@ def menu_produtos_principal():
         # Tratamento de exceção para evitar que o programa quebre se o usuário digitar uma letra
         try:
             acao = int(input("\nEscolha sua ação (1 - 5): "))
-        except ValueError:
+        except:
             print("\nDigite apenas números.")
             continue
             

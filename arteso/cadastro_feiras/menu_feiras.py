@@ -3,6 +3,8 @@
 # ==================================================
 from arteso.cadastro_feiras.menu_feiras import *
 from arteso.cadastro_feiras.crud_feiras import *
+from arteso.exception_value import *
+
 # ==================================================
 #   Main || LOOP INICIAL
 # ==================================================
@@ -17,7 +19,7 @@ def menu_feiras():
         print("5 - Voltar ao Menu Principal")
         print("===========================")
         
-        opcao = int(input("\nEscolha uma opção: ")) #adicionar tratamento de exceção
+        opcao =ler_inteiro("\nEscolha uma opção: ")
         
         if opcao == 1:
             # Primeiro mostra o catálogo de feiras que guardamos na função
