@@ -9,6 +9,7 @@ from arteso.cadastro_produtos.dados_produtos import *
 from arteso.cadastro_produtos.crud_produtos import *
 from arteso.cadastro_feiras.crud_feiras import *
 from arteso.cadastro_produtos.menu_produtos import menu_produtos
+from arteso.exception_value import *
 
 
 # SUB-MENU 1 | Gerenciamento de Produtos
@@ -18,9 +19,9 @@ def menu_produtos_principal():
     while True:
         print("="*30, "MENU DE PRODUTOS", "="*30)
         print("1 - Adicionar Produto")
-        print("2 - Excluir Produto")
+        print("2 - Consultar Produtos")
         print("3 - Atualizar Produto")
-        print("4 - Ver Produtos")
+        print("4 - Excluir Produto")
         print("5 - Voltar ao Menu Principal")
         print("=============================")
         
@@ -35,11 +36,11 @@ def menu_produtos_principal():
         if acao == 1:
             adicionar_produtos(descricao_produtos)
         elif acao == 2:
-            excluir_produto(descricao_produtos)
+            consultar_produtos(descricao_produtos)
         elif acao == 3:
             atualizar_produto(descricao_produtos)
         elif acao == 4:
-            consultar_produtos(descricao_produtos)
+            excluir_produto(descricao_produtos)
         elif acao == 5:
             print("\nRetornando ao painel principal...")
             break # Quebra o laço atual para subir um nível no menu
@@ -60,7 +61,7 @@ def menu_feiras_principal():
         print("5 - Voltar ao Menu Principal")
         print("===========================")
         
-        opcao = input("\nEscolha uma opção: ").strip()
+        opcao = ler_inteiro("\nEscolha uma opção: ")
         
         # Condicionais que chamam as funções do arquivo crud_feiras.py
         if opcao == "1":
@@ -86,16 +87,16 @@ def sistema_logado():
         print("="*30, "PAINEL ARTESÔ", "="*30)
         print("1 - Gerenciar Produtos")
         print("2 - Gerenciar Feiras")
-        print("0 - Desconectar (Log out)")
+        print("3 - Desconectar (Log out)")
         
-        opcao = input("Escolha uma opção: ").strip()
+        opcao = ler_inteiro("Escolha uma opção: ")
         
         # Redireciona o fluxo para o módulo escolhido ou encerra a sessão atual
-        if opcao == "1":
+        if opcao == 1:
             menu_produtos_principal() # Direciona para o fluxo de produtos
-        elif opcao == "2":
+        elif opcao == 2:
             menu_feiras_principal() # Direciona para o fluxo de feiras
-        elif opcao == "0":
+        elif opcao == 3:
             print("\nSessão encerrada com sucesso.")
             break # Quebra o laço e faz o usuário voltar para a tela de autenticação inicial
         else:
@@ -110,12 +111,12 @@ def main():
         print("="*30, "BEM VINDO AO ARTESÔ", "="*30)
         print("1 - Login")
         print("2 - Cadastro")
-        print("0 - Sair")
+        print("3 - Sair")
         
-        opcao = input("Escolha uma opção: ").strip()
+        opcao = ler_inteiro("Escolha uma opção: ")
         
         # Fluxo de verificação de credenciais
-        if opcao == "1":
+        if opcao == 1:
             email = input("Digite seu e-mail: ").strip()
             senha = input("Digite sua senha: ")
             
@@ -124,7 +125,7 @@ def main():
                 sistema_logado() # Só concede acesso se a função retornar True
                 
         # Fluxo para criação de novas contas
-        elif opcao == "2":
+        elif opcao == 2:
             print("="*30, "CADASTRO DE USUÁRIO", "="*30)
             email = input("Digite seu e-mail: ").strip()
             senha = input("Digite sua senha: ")
@@ -132,7 +133,7 @@ def main():
             cadastrar_usuario(email, senha, confirmar_senha) # Invoca a rotina de criação de conta e senha
             
         # Encerramento definitivo da aplicação
-        elif opcao == "0":
+        elif opcao == 3:
             print("Sistema encerrado. Até logo!")
             break # Quebra o loop principal e finaliza o script de vez
         else:

@@ -11,18 +11,18 @@ def adicionar_produtos(descricao_produtos):
 
     while add_produto == "S":
 
-        produto = str(input("\nDigite o nome do produto: ")).strip().capitalize()
+        produto = ler_string("\nDigite o nome do produto: ").strip().capitalize()
                     
-        if not any(chave["nome"] == produto for chave in descricao_produtos): #evita duplicidade de dados para não criar outra lista
+        if not any(chave["Nome"] == produto for chave in descricao_produtos): #evita duplicidade de dados para não criar outra lista
             print(f"\nProduto '{produto}' adicionado!")
 
             print(f"\nAdicione a descrição do produto: ") #criação do dicionário com a descrição do produto
 
             produtos = {
-                "nome":     produto,
-                "preço":    ler_real("Valor do produto: R$ "),
-                "material": input("Material do produto: ").strip().capitalize(),
-                "estoque":  ler_inteiro("Estoque do produto: ")
+                "Nome":     produto,
+                "Preço":    ler_real("Valor do produto: R$ "),
+                "Material": ler_string("Material do produto: ").strip().capitalize(),
+                "Estoque":  ler_inteiro("Estoque do produto: ")
             }
             descricao_produtos.append(produtos) #adiciona o dicionário em uma lista para ter uma sequência de cadastros
         else:
@@ -33,8 +33,6 @@ def adicionar_produtos(descricao_produtos):
 
     print("\nFim do cadastro de produtos")    
 
-
-    return 0
 # READ    |  listar produto(s)
 
 def consultar_produtos(descrição_produtos):
@@ -44,14 +42,17 @@ def consultar_produtos(descrição_produtos):
 
     #lista todos os produtos cadastrados com um número ordinal associado
     for i in range (len(descrição_produtos)):
-        print(f"{i+1}º produto: {descrição_produtos[i]["nome"]}")
+        print(f"{i+1}º produto: {descrição_produtos[i]["Nome"]}")
 
     consulta_geral = ler_decisao("\nGostaria de fazer uma consulta geral? [S/N] -> ")
 
     #condicional que leva à lista de dicionários com todos os produtos e com print formatado auxiliado por um for
     if consulta_geral == "S":
         for g in range (len(descrição_produtos)):
-            print(f"{g+1}º produto: {descrição_produtos[g]}")
+            print(f"\n{g+1}º produto: ")
+            for k, v in descrição_produtos[g].items():
+                print(f"{k}: {v}")
+            print("\n" + "-"*30)
         print("\nFim da consulta geral")
     else:
         print("\nVocê saiu da consulta geral")
@@ -75,7 +76,8 @@ def consultar_produtos(descrição_produtos):
         for n in range (len(descrição_produtos)):
             if n+1 == num_produto:
                 print(f"\nDescrição do produto de número {num_produto}:")
-                print(f"{descrição_produtos[n]}")
+                for k, v in descrição_produtos[n].items():
+                    print(f"{k}: {v}")
 
         continuar_consulta = ler_decisao("\nGostaria de continuar a consulta por produto? [S/N] -> ")
 
@@ -102,7 +104,7 @@ def atualizar_produto(descricao_produtos):
         print("\nProdutos cadastrados.")
         #retorna a lista de produtos e o número ordinal associado ao produto
         for i in range(len(descricao_produtos)):
-            print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
+            print(f"\n{i+1}º produto: {descricao_produtos[i]['Nome']}")
 
         num_produto = ler_inteiro("\nDigite o número do produto que deseja atualizar: ")
 
@@ -114,45 +116,45 @@ def atualizar_produto(descricao_produtos):
         #variável que recebe o dicionário do produto a ser atualizado
         produto = descricao_produtos[num_produto - 1]
 
-        print(f"\nProduto selecionado: {produto['nome']}")
+        print(f"\nProduto selecionado: {produto['Nome']}")
 
         #menu que guia o usuário nas opções de atualização
-        print("\nO que deseja atualizar?")
+        print("\nO que deseja atualizar?\n")
         print("1 - Nome")
         print("2 - Preço")
         print("3 - Material")
         print("4 - Estoque")
         print("5 - Tudo")
 
-        opcao = ler_inteiro("Escolha o número da opção: ")
+        opcao = ler_inteiro("\nEscolha o número da opção: ")
 
         if opcao == 1:
-            produto["nome"] = input("Novo nome: ").strip().capitalize()
+            produto["Nome"] = ler_string("Novo nome: ").strip().capitalize()
             print("\nNome atualizado com sucesso!")
         
         elif opcao == 2:
-            produto["preço"] = ler_real("Novo preço: R$ ")
+            produto["Preço"] = ler_real("Novo preço: R$ ")
             print("\nPreço atualizado com sucesso!")
 
         elif opcao == 3:
-            produto["material"] = input("Novo material: ").strip().capitalize()
+            produto["Material"] = ler_string("Novo material: ").strip().capitalize()
             print("\nMaterial atualizado com sucesso!")
     
         elif opcao == 4:
-            produto["estoque"] = ler_inteiro("Novo estoque: ")
+            produto["Estoque"] = ler_inteiro("Novo estoque: ")
             print("\nEstoque atualizado com sucesso!")
             
         elif opcao == 5:
-            produto["nome"] = input("Novo nome: ").strip().capitalize()
-            produto["preço"] = ler_real("Novo preço: R$ ") 
-            produto["material"] = input("Novo material: ").strip().capitalize()
-            produto["estoque"] = ler_inteiro("Novo estoque: ")
+            produto["Nome"] = ler_string("Novo nome: ").strip().capitalize()
+            produto["Preço"] = ler_real("Novo preço: R$ ") 
+            produto["Material"] = ler_string("Novo material: ").strip().capitalize()
+            produto["Estoque"] = ler_inteiro("Novo estoque: ")
             print("\nProduto atualizado com sucesso!")
 
         else:
             print("\nOpção inválida.")
 
-        att_produto = ler_decisao("\nDeseja adicionar mais produtos? [S/N] ")
+        att_produto = ler_decisao("\nDeseja atualizar mais algum produto? [S/N] ")
 
     print("\nFim da atualização")
 
@@ -172,7 +174,7 @@ def excluir_produto(descricao_produtos):
         print("\nProdutos cadastrados:")
         #laço de repetição que lista os produtos cadastrados e mostra os números ordinais associados a cada produto
         for i in range(len(descricao_produtos)):
-            print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
+            print(f"{i+1}º produto: {descricao_produtos[i]['Nome']}")
 
         num_produto = ler_inteiro("\nDigite o número do produto que deseja excluir: ")
 
@@ -184,8 +186,8 @@ def excluir_produto(descricao_produtos):
         #variável que recebe o dicionário do produto que foi removido pelo método .pop()
         produto_removido = descricao_produtos.pop(num_produto - 1)
 
-        print(f"\nProduto '{produto_removido['nome']}' removido com sucesso!")
+        print(f"\nProduto '{produto_removido['Nome']}' removido com sucesso!")
 
-        del_produto = ler_decisao("\nDeseja excluir produtos na loja? [S/N] ")
+        del_produto = ler_decisao("\nDeseja excluir mais produtos na loja? [S/N] ")
 
     print("\nFim da exclusão de produtos.")

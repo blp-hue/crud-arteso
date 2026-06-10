@@ -27,3 +27,17 @@ def ler_decisao(mensagem):
 
         except ValueError:
             print(f"\nDigite apenas [S] ou [N]")
+
+#função para verificar se o input é vazio
+def ler_string(mensagem):
+    while True:
+        try:
+            opcao = input(mensagem)
+
+            if opcao == "":
+                raise ValueError #cria uma excessão personalizada de ValueError
+
+            return opcao
+
+        except ValueError:
+            print(f"\nDigite uma resposta válida.")
