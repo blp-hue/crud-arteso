@@ -14,10 +14,16 @@ def ler_real(mensagem):
         except ValueError:
             print("Digite um número Real válido.")
 
-def ler_decisao (mensagem):
-     while True:
+#função para verificar se o input é S ou N
+def ler_decisao(mensagem):
+    while True:
         try:
-            opcao = input(mensagem).strip().capitalize()
+            opcao = input(mensagem).strip().upper()
+
+            if opcao not in ("S", "N"):
+                raise ValueError #cria uma excessão personalizada de ValueError
+
             return opcao
-        except opcao !="S" and opcao!="N":
+
+        except ValueError:
             print("Digite apenas [S] ou [N]")
