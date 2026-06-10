@@ -4,7 +4,7 @@ def ler_inteiro(mensagem):
         try:
             return int(input(mensagem))
         except ValueError:
-            print("Digite um número inteiro válido.")
+            print(f"\nDigite um número inteiro válido.")
 
 #função para verificar números reais
 def ler_real(mensagem):
@@ -12,7 +12,7 @@ def ler_real(mensagem):
         try:
             return float(input(mensagem))
         except ValueError:
-            print("Digite um número Real válido.")
+            print(f"\nDigite um número Real válido.")
 
 #função para verificar se o input é S ou N
 def ler_decisao(mensagem):
@@ -26,4 +26,4 @@ def ler_decisao(mensagem):
             return opcao
 
         except ValueError:
-            print("Digite apenas [S] ou [N]")
+            print(f"\nDigite apenas [S] ou [N]")

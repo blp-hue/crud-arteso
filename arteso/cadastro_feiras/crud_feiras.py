@@ -158,7 +158,7 @@ def deletar_inscricao(inscricao_feira):
         print("\nNão há inscrições para deletar.")
         return
     
-    confirmacao = input("\nTem certeza que deseja deletar sua inscrição? [S/N] ").strip().upper()
+    confirmacao = ler_decisao("\nTem certeza que deseja deletar sua inscrição? [S/N] ")
 
     if confirmacao == "S":
         inscricao_feira.clear()

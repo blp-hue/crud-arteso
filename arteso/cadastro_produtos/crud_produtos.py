@@ -7,33 +7,29 @@ from arteso.exception_value import *
 
 def adicionar_produtos(descricao_produtos):
 
-    while True: 
-        add_produto = ler_decisao("\nDeseja adicionar produto(s) na loja? [S/N] ").strip().upper()#adicionar tratamento de exceção
+    add_produto = ler_decisao("\nDeseja adicionar produto(s) na loja? [S/N] ")
 
-        if add_produto == "S":
+    while add_produto == "S":
 
-            while add_produto == "S":
+        produto = str(input("\nDigite o nome do produto: ")).strip().capitalize()
+                    
+        if not any(chave["nome"] == produto for chave in descricao_produtos): #evita duplicidade de dados para não criar outra lista
+            print(f"\nProduto '{produto}' adicionado!")
 
-                produto = str(input("\nDigite o nome do produto: ")).strip().capitalize()#adicionar tratamento de exceção
-                            
-                if not any(chave["nome"] == produto for chave in descricao_produtos): #evita duplicidade de dados para não criar outra lista
-                    print(f"\nProduto '{produto}' adicionado!")
+            print(f"\nAdicione a descrição do produto: ") #criação do dicionário com a descrição do produto
 
-                    print(f"\nAdicione a descrição do produto: ") #criação do dicionário com a descrição do produto
-
-                    produtos = {
-                        "nome":     produto,
-                        "preço":    ler_real("Valor do produto: R$ "),
-                        "material": input("Material do produto: ").strip().capitalize(),
-                        "estoque":  ler_inteiro("Estoque do produto: ")
-                    }
-                    descricao_produtos.append(produtos) #adiciona o dicionário em uma lista para ter uma sequência de cadastros
-                else:
-                    print("\nProduto já existe na loja.")
-
-                add_produto = input("\nDeseja adicionar mais produtos? [S/N] ").strip().upper()#adicionar tratamento de exceção 
+            produtos = {
+                "nome":     produto,
+                "preço":    ler_real("Valor do produto: R$ "),
+                "material": input("Material do produto: ").strip().capitalize(),
+                "estoque":  ler_inteiro("Estoque do produto: ")
+            }
+            descricao_produtos.append(produtos) #adiciona o dicionário em uma lista para ter uma sequência de cadastros
         else:
-            break
+            print("\nProduto já existe na loja.")
+
+        add_produto = ler_decisao("\nDeseja adicionar mais produtos? [S/N] ") 
+
 
     print("\nFim do cadastro de produtos")    
 
@@ -50,7 +46,7 @@ def consultar_produtos(descrição_produtos):
     for i in range (len(descrição_produtos)):
         print(f"{i+1}º produto: {descrição_produtos[i]["nome"]}")
 
-    consulta_geral = input("\nGostaria de fazer uma consulta geral? [S/N] -> ").strip().upper()#adicionar tratamento de exceção
+    consulta_geral = ler_decisao("\nGostaria de fazer uma consulta geral? [S/N] -> ")
 
     #condicional que leva à lista de dicionários com todos os produtos e com print formatado auxiliado por um for
     if consulta_geral == "S":
@@ -61,7 +57,7 @@ def consultar_produtos(descrição_produtos):
         print("\nVocê saiu da consulta geral")
 
 
-    consulta_produto = input("\nGostaria consultar um produto? [S/N] -> ").strip().upper()#adicionar tratamento de exceção
+    consulta_produto = ler_decisao("\nGostaria consultar um produto? [S/N] -> ")
 
     #condicional que valida o início do laço de repetição de consulta por produto
     if consulta_produto!="S":
@@ -81,7 +77,7 @@ def consultar_produtos(descrição_produtos):
                 print(f"\nDescrição do produto de número {num_produto}:")
                 print(f"{descrição_produtos[n]}")
 
-        continuar_consulta = input("\nGostaria de continuar a consulta por produto? [S/N] -> ").strip().upper()
+        continuar_consulta = ler_decisao("\nGostaria de continuar a consulta por produto? [S/N] -> ")
 
         #condicional que quebra o laço de repetição caso não se deseje continuar a consulta por produto
         if continuar_consulta!="S":
@@ -100,7 +96,7 @@ def atualizar_produto(descricao_produtos):
         print("\nNão existem produtos cadastrados.")
         return
 
-    att_produto = input("\nDeseja atualizar produto(s) na loja? [S/N] ").strip().upper()#adicionar tratamento de exceção
+    att_produto = ler_decisao("\nDeseja atualizar produto(s) na loja? [S/N] ")
 
     while att_produto == "S":
         print("\nProdutos cadastrados.")
@@ -148,7 +144,7 @@ def atualizar_produto(descricao_produtos):
             
         elif opcao == 5:
             produto["nome"] = input("Novo nome: ").strip().capitalize()
-            produto["preço"] = ler_real("Novo preço: R$ ") #adicionar tratamento de exceção
+            produto["preço"] = ler_real("Novo preço: R$ ") 
             produto["material"] = input("Novo material: ").strip().capitalize()
             produto["estoque"] = ler_inteiro("Novo estoque: ")
             print("\nProduto atualizado com sucesso!")
@@ -156,7 +152,7 @@ def atualizar_produto(descricao_produtos):
         else:
             print("\nOpção inválida.")
 
-        att_produto = input("\nDeseja adicionar mais produtos? [S/N] ").strip().upper()#adicionar tratamento de exceção
+        att_produto = ler_decisao("\nDeseja adicionar mais produtos? [S/N] ")
 
     print("\nFim da atualização")
 
@@ -170,7 +166,7 @@ def excluir_produto(descricao_produtos):
         print("\nNão há produtos cadastrados.")
         return
 
-    del_produto = input("\nDeseja excluir produto(s) na loja? [S/N] ").strip().upper()#adicionar tratamento de exceção
+    del_produto = ler_decisao("\nDeseja excluir produto(s) na loja? [S/N] ")
 
     while del_produto == "S":
         print("\nProdutos cadastrados:")
@@ -178,7 +174,7 @@ def excluir_produto(descricao_produtos):
         for i in range(len(descricao_produtos)):
             print(f"{i+1}º produto: {descricao_produtos[i]['nome']}")
 
-        num_produto = ler_inteiro("\nDigite o número do produto que deseja excluir: ")#adicionar tratamento de exceção
+        num_produto = ler_inteiro("\nDigite o número do produto que deseja excluir: ")
 
         #verifica se o número do input é válido e corresponde a um dos produtos
         if num_produto < 1 or num_produto > len(descricao_produtos):
@@ -190,6 +186,6 @@ def excluir_produto(descricao_produtos):
 
         print(f"\nProduto '{produto_removido['nome']}' removido com sucesso!")
 
-        del_produto = input("\nDeseja excluir produtos na loja? [S/N] ").strip().upper()#adicionar tratamento de exceção
+        del_produto = ler_decisao("\nDeseja excluir produtos na loja? [S/N] ")
 
     print("\nFim da exclusão de produtos.")
