@@ -22,12 +22,12 @@ def carregar_inscricoes(): #carrega as inscrições do arquivo JSON para um dici
         # Se o arquivo não existir ou estiver corrompido/vazio, retorna um dicionário vazio
         return {}
 
-def salvar_todas_inscricoes_json(dicionario): #salva o dicionário mestre no arquivo JSON, garantindo que os dados sejam persistidos mesmo após o programa ser fechado
+def todas_inscricoes(dicionario): #salva o dicionário atualizado de inscrições de volta no arquivo JSON, garantindo que as alterações sejam persistidas
     with open(ARQUIVO_INSCRICOES_JSON, "w", encoding="utf-8") as arquivo:
         json.dump(dicionario, arquivo, indent=4, ensure_ascii=False)
 
 
-# NOVO: Função utilitária interna para ler o catálogo do CSV sem rodar no import do main
+#Função utilitária interna para ler o catálogo do CSV sem rodar no import do main
 def carregar_catalogo():
     global info_feiras, tupla_feiras
     info_feiras.clear()
@@ -86,7 +86,7 @@ def inscrever_feiras(email_logado):
     banco_inscricoes[email_logado] = inscricao_feira
     
     # Salva o dicionário master atualizado de volta no arquivo JSON
-    salvar_todas_inscricoes_json(banco_inscricoes)
+    todas_inscricoes(banco_inscricoes)
 
     #laço de repetição que itera a lista de feiras e encontra a feira que a artesã está inscrita para retornar informações específicas
     for f in info_feiras:
@@ -194,7 +194,7 @@ def atualizar_inscricao(email_logado):
 
     # Salva o arquivo JSON atualizado
     banco_inscricoes[email_logado] = inscricao_feira
-    salvar_todas_inscricoes_json(banco_inscricoes)
+    todas_inscricoes(banco_inscricoes)
 
 
 #DELETE | deletar a inscrição na feira 
@@ -213,7 +213,7 @@ def deletar_inscricao(email_logado):
     if confirmacao == "S":
         # Remove a chave do usuário logado do dicionário master
         del banco_inscricoes[email_logado]
-        salvar_todas_inscricoes_json(banco_inscricoes)
+        todas_inscricoes(banco_inscricoes)
         print("\nInscrição deletada com sucesso!")
     else:
         print("\nOperação cancelada.")
