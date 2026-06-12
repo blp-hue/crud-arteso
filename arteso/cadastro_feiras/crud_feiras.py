@@ -154,6 +154,8 @@ def atualizar_inscricao(email_logado):
         print("1 - Feira")
         print("2 - Dados pessoais")
         print("3 - Tudo")
+        print("4 - Sair da atualização")
+
         try:
             opcao = int(input("Escolha o número da opção: "))
         except ValueError:
@@ -211,7 +213,11 @@ def atualizar_inscricao(email_logado):
 
             print("\nInscrição atualizada com sucesso!")
             break
-
+        
+        elif opcao == 4:
+            print("Você saiu da atualização de feiras.")
+            break
+        
         else:
             print("\nOpção inválida.")
 

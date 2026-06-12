@@ -18,19 +18,17 @@ def menu_feiras(email_logado): # <- Recebe o e-mail vindo do main.py
         print("5 - Voltar ao Menu Principal")
         print("===========================")
         
-        opcao = input("\nEscolha uma opção: ").strip()
+        opcao = ler_inteiro("\nEscolha uma opção: ")
         
-        if opcao == "1":
+        if opcao == 1:
             inscrever_feiras(email_logado) 
-        elif opcao == "2":
-            # Na leitura, apenas chamamos a função passando o e-mail.
-            # O crud_feiras.py vai se encarregar de buscar no JSON.
+        elif opcao == 2:
             ler_inscricao(email_logado) 
-        elif opcao == "3":
+        elif opcao == 3:
             atualizar_inscricao(email_logado) 
-        elif opcao == "4":
+        elif opcao == 4:
             deletar_inscricao(email_logado) 
-        elif opcao == "5":
+        elif opcao == 5:
             print("\nRetornando ao painel principal...")
             break
         else:

@@ -6,5 +6,13 @@
             "Material": "Milho",
             "Estoque": 67
         }
+    ],
+    "b@gmail.com": [
+        {
+            "Nome": "Prato decorado",
+            "Preço": 35.0,
+            "Material": "Cerâmica",
+            "Estoque": 5
+        }
     ]
 }
