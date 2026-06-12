@@ -26,7 +26,12 @@ def todas_inscricoes(dicionario): #salva o dicionário atualizado de inscriçõe
     with open(ARQUIVO_INSCRICOES_JSON, "w", encoding="utf-8") as arquivo:
         json.dump(dicionario, arquivo, indent=4, ensure_ascii=False)
 
-
+def validar_feiras(nome_digitado): 
+    nome_busca = nome_digitado.strip().capitalize()
+    for f in info_feiras: 
+        if nome_busca == f[0].strip().capitalize():
+            return f[0]  
+    return None
 #Função utilitária interna para ler o catálogo do CSV sem rodar no import do main
 def carregar_catalogo():
     global info_feiras, tupla_feiras
@@ -73,12 +78,20 @@ def inscrever_feiras(email_logado):
     print("OBSERVAÇÃO: Você só pode se inscrever em apenas uma feira a cada semana. Fique atenta aos prazos.")
 
     inscricao_feira = {} #dicionário local para armazenar as informações da inscrição da artesã, evitando mistura de dados de logins diferentes
+    while True:
+        opcao_feira = ler_string("\nDigite o nome da feira (igual ao da lista): ")
+        feira_correta = validar_feiras(opcao_feira)
+        
+        if feira_correta:
+            inscricao_feira["Feira"] = feira_correta
+            break
+        else:
+            print("\nEsta feira não está cadastrada no nosso sistema. Tente novamente.")
 
     #adição do par chave-valor no dicionário que irá conter a inscrição da artesã
-    inscricao_feira["Feira"] = input("\nDigite o nome da feira (igual ao da lista): ").strip().capitalize()
-    inscricao_feira["Nome"] = input("Digite seu nome completo: ").strip().capitalize()
-    inscricao_feira["Endereço"] = input("Digite seu endereço: ").strip().capitalize()
-    inscricao_feira["Bairro"] = input("Digite seu bairro: ").strip().capitalize()
+    inscricao_feira["Nome"] = ler_string("Digite seu nome completo: ").strip().capitalize()
+    inscricao_feira["Endereço"] = ler_string("Digite seu endereço: ").strip().capitalize()
+    inscricao_feira["Bairro"] = ler_string("Digite seu bairro: ").strip().capitalize()
     inscricao_feira["Quantidade de produtos"] = ler_inteiro("Digite a quantidade de produtos: ")
     inscricao_feira["Data de inscrição"] = data_inscricao.strftime("%d/%m/%Y")
 
@@ -90,7 +103,7 @@ def inscrever_feiras(email_logado):
 
     #laço de repetição que itera a lista de feiras e encontra a feira que a artesã está inscrita para retornar informações específicas
     for f in info_feiras:
-        if inscricao_feira["Feira"] in f[0].strip().capitalize():
+        if inscricao_feira["Feira"].strip().capitalize() == f[0].strip().capitalize():
             print(f"\nInformações sobre sua próxima feira, {inscricao_feira['Nome']} -> {inscricao_feira['Feira']}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
 
 
@@ -117,7 +130,7 @@ def ler_inscricao(email_logado):
     # Carrega o catálogo do CSV para exibir os detalhes estruturais da feira associada
     carregar_catalogo()
     for f in info_feiras:
-        if inscricao_usuario["Feira"] in f[0].strip().capitalize():
+        if inscricao_usuario["Feira"].strip().capitalize() == f[0].strip().capitalize():
             print(f"Informações sobre sua próxima feira, {inscricao_usuario['Nome']} -> {inscricao_usuario['Feira']}: {f[1]} \\ {f[2]} \\ {f[3]} \\ {f[4]} \\ {f[5]} \\ {f[6]}")
 
 
@@ -148,26 +161,28 @@ def atualizar_inscricao(email_logado):
             continue
             
         #atualiza a feira que está inscrita
+        # atualiza a feira que está inscrita
         if opcao == 1:
             print("\nFeiras disponíveis:")
-
             for f in tupla_feiras:
                 print(f) 
 
-            nova_feira = input("\nDigite a nova feira: ").strip().capitalize()
-
-            for f in info_feiras:
-                if nova_feira in f[0].strip().capitalize():
-                    inscricao_feira["Feira"] = nova_feira.strip().capitalize()
-
-            print("\nAtualizado com sucesso!")
+            while True:
+                nova_feira = ler_string("\nDigite a nova feira: ")
+                feira_correta = validar_feiras(nova_feira)
+                
+                if feira_correta:
+                    inscricao_feira["Feira"] = feira_correta
+                    print("\nFeira atualizada com sucesso!")
+                    break
+                else:
+                    print("\nErro: Esta feira não está cadastrada no nosso sistema. Tente novamente.")
             break
-
         #atualiza os dados pessoais inscritos
         elif opcao == 2:
-            inscricao_feira["Nome"] = input("\nDigite seu nome completo: ").strip().capitalize()
-            inscricao_feira["Endereço"] = input("Digite o seu endereço: ").strip().capitalize()
-            inscricao_feira["Bairro"] = input("Digite seu bairro: ").strip().capitalize()
+            inscricao_feira["Nome"] = ler_string("\nDigite seu nome completo: ").strip().capitalize()
+            inscricao_feira["Endereço"] = ler_string("Digite o seu endereço: ").strip().capitalize()
+            inscricao_feira["Bairro"] = ler_string("Digite seu bairro: ").strip().capitalize()
 
             print("\nDados atualizados com sucesso!")
             break
@@ -175,14 +190,22 @@ def atualizar_inscricao(email_logado):
         #atualiza todos os aspectos da inscrição
         elif opcao == 3:
             print("\nRefazendo inscrição...")
-
             for f in info_feiras:
                 print(f[0])
 
-            inscricao_feira["Feira"] = input("\nDigite o nome feira (igual ao da lista): ").strip().capitalize()
-            inscricao_feira["Nome"] = input("Digite seu nome completo: ").strip().capitalize()
-            inscricao_feira["Endereço"] = input("Digite seu endereço: ").strip().capitalize()
-            inscricao_feira["Bairro"] = input("Digite seu bairro: ").strip().capitalize()
+            # Loop de validação usando a nova def
+            while True:
+                nova_feira = ler_string("\nDigite o nome feira (igual ao da lista): ")
+                feira_correta = validar_feiras(nova_feira)
+                
+                if feira_correta:
+                    inscricao_feira["Feira"] = feira_correta
+                    break
+                else:
+                    print("\nErro: Esta feira não está cadastrada no nosso sistema. Tente novamente.")
+            inscricao_feira["Nome"] = ler_string("Digite seu nome completo: ").strip().capitalize()
+            inscricao_feira["Endereço"] = ler_string("Digite seu endereço: ").strip().capitalize()
+            inscricao_feira["Bairro"] = ler_string("Digite seu bairro: ").strip().capitalize()
             inscricao_feira["Quantidade de produtos"] = ler_inteiro("Digite a quantidade de produtos: ")
             inscricao_feira["Data de inscrição"] = data_inscricao.strftime("%d/%m/%Y")
 

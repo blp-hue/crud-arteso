@@ -32,9 +32,9 @@ def ler_decisao(mensagem):
 def ler_string(mensagem):
     while True:
         try:
-            opcao = input(mensagem)
+            opcao = input(mensagem).strip().capitalize()
 
-            if opcao == "":
+            if opcao == "" or opcao == " ":
                 raise ValueError #cria uma excessão personalizada de ValueError
 
             return opcao
