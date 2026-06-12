@@ -2,7 +2,7 @@
 
 from arteso.cadastro_produtos.crud_produtos import *
 
-def menu_produtos(descricao_produtos):
+def menu_produtos(email_logado):
     """O antigo 'main interno' adaptado para ser uma função controladora"""
     while True:
         # Exibe o menu visual
@@ -24,18 +24,18 @@ def menu_produtos(descricao_produtos):
         # Estrutura match/case mapeando para as funções do seu CRUD
         match acao:
             case 1:
-                adicionar_produtos(descricao_produtos)
+                adicionar_produtos(email_logado)
                 
             case 2:
-                excluir_produto(descricao_produtos)
+                excluir_produto(email_logado)
                 
             case 3:
                 # Corrigido aqui: sua função no crud.py está no singular (atualizar_produto)
-                atualizar_produto(descricao_produtos)
+                atualizar_produto(email_logado)
                 
             case 4:
                 # Corrigido aqui: sua função no crud.py usa descrição_produtos com Ç
-                consultar_produtos(descricao_produtos)
+                consultar_produtos(email_logado)
                 
             case 5:
                 print("\nVoltando ao menu principal do Artesô...")

@@ -1,11 +1,35 @@
 # ==================================================
 #   FUNÇÕES DO CRUD
 # ==================================================
+import json
 from arteso.exception_value import *
+ARQUIVO_PRODUTOS_JSON = "produtos.json" 
+
+def carregar_produtos(): 
+    # Carrega todo o dicionário master de produtos do arquivo JSON 
+    try:
+        with open(ARQUIVO_PRODUTOS_JSON, "r", encoding="utf-8") as arquivo:
+            return json.load(arquivo)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+def salvar_produtos(dicionario_master): 
+    # Grava o dicionário mestre de produtos de volta no arquivo JSON
+    with open(ARQUIVO_PRODUTOS_JSON, "w", encoding="utf-8") as arquivo:
+        json.dump(dicionario_master, arquivo, indent=4, ensure_ascii=False)
+
 
 # CREATE  |  cadastro de produto(s) 
 
-def adicionar_produtos(descricao_produtos):
+def adicionar_produtos(email_logado):
+
+    banco_geral = carregar_produtos()
+
+    # Se a artesã já tiver produtos, pega a lista dela. Se não, cria uma lista nova vazia
+    if email_logado not in banco_geral:
+        banco_geral[email_logado] = []
+
+    descricao_produtos = banco_geral[email_logado]
 
     add_produto = ler_decisao("\nDeseja adicionar produto(s) na loja? [S/N] ")
 
@@ -29,14 +53,25 @@ def adicionar_produtos(descricao_produtos):
             print("\nProduto já existe na loja.")
 
         add_produto = ler_decisao("\nDeseja adicionar mais produtos? [S/N] ") 
+    # salva no arquivo json
+    banco_geral[email_logado] = descricao_produtos
 
+    salvar_produtos(banco_geral)
 
     print("\nFim do cadastro de produtos")    
 
 # READ    |  listar produto(s)
 
-def consultar_produtos(descrição_produtos):
+def consultar_produtos(email_logado):
+    banco_geral = carregar_produtos()
+    
+    # Validação caso a artesã logada não possua nenhum produto registrado ainda
+    if email_logado not in banco_geral or len(banco_geral[email_logado]) == 0:
+        print("\nNão existem produtos cadastrados na sua loja.")
+        return
 
+    # Captura a lista de produtos específica desta artesã
+    descrição_produtos = banco_geral[email_logado]
     print("="*30, "CONSULTA DE PRODUTOS", "="*30)
     print(f"Os produtos cadastrados são: ")
 
@@ -90,8 +125,16 @@ def consultar_produtos(descrição_produtos):
 
 # UPDATE  |  atualizar produto() 
 
-def atualizar_produto(descricao_produtos):
+def atualizar_produto(email_logado):
+
+    banco_geral = carregar_produtos()
     
+    if email_logado not in banco_geral or len(banco_geral[email_logado]) == 0:
+        print("\nNão existem produtos cadastrados na sua loja.")
+        return
+
+    descricao_produtos = banco_geral[email_logado]
+
     print("="*30, "ATUALIZAÇÃO DE PRODUTOS", "="*30)
     #condicional que verifica se existem produtos cadastrados
     if len(descricao_produtos) == 0:
@@ -156,11 +199,23 @@ def atualizar_produto(descricao_produtos):
 
         att_produto = ler_decisao("\nDeseja atualizar mais algum produto? [S/N] ")
 
+    # Atualiza os produtos no JSON
+    banco_geral[email_logado] = descricao_produtos
+    salvar_produtos(banco_geral)
+
     print("\nFim da atualização")
 
 #DELETE | Excluir produto(s)
 
-def excluir_produto(descricao_produtos):
+def excluir_produto(email_logado):
+
+    banco_geral = carregar_produtos()
+    
+    if email_logado not in banco_geral or len(banco_geral[email_logado]) == 0:
+        print("\nNão há produtos cadastrados na sua loja.")
+        return
+
+    descricao_produtos = banco_geral[email_logado]  
 
     print("="*30, "EXCLUSÃO DE PRODUTOS", "="*30)
     #verifica se há produtos cadastrados
@@ -189,5 +244,9 @@ def excluir_produto(descricao_produtos):
         print(f"\nProduto '{produto_removido['Nome']}' removido com sucesso!")
 
         del_produto = ler_decisao("\nDeseja excluir mais produtos na loja? [S/N] ")
+
+    # Exclui o produto no JSON
+    banco_geral[email_logado] = descricao_produtos
+    salvar_produtos(banco_geral)
 
     print("\nFim da exclusão de produtos.")
